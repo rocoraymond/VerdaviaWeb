@@ -32,7 +32,7 @@ const Contact = () => {
 
     try {
       const templateParams = {
-        to_email: 'verdaviasustainability@gmail.com',
+        to_email: 'ilikeraymond011@gmail.com',
         from_name: `${formData.firstName} ${formData.lastName}`,
         from_email: formData.email,
         phone: formData.phone,
