@@ -42,10 +42,10 @@ const Contact = () => {
 
       // Replace these with your actual EmailJS credentials
       await emailjs.send(
-        'service_d6zuq9s',
-        'template_ft40lbs',
+        'service_tdk8e5o',
+        'template_3rs6ry6',
         templateParams,
-        'AbIOw5r57VovlO8gj'
+        '2q8xDZEIcMVTLDnYU'
       );
 
       setSubmitStatus({
