@@ -212,9 +212,13 @@ const TagSimulator = () => {
             <input
               type="text"
               value={travelerName}
-              onChange={(e) => setTravelerName(e.target.value.toUpperCase())}
+              onChange={(e) => setTravelerName(e.target.value)}
               maxLength={22}
-              className="w-full px-4 py-2.5 bg-paper border-2 border-ink text-ink font-mono text-sm font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
+              autoCapitalize="characters"
+              autoCorrect="off"
+              spellCheck="false"
+              autoComplete="off"
+              className="w-full px-4 py-2.5 bg-paper border-2 border-ink text-ink font-mono text-sm font-bold uppercase focus:outline-none focus:bg-white focus:border-bottega transition"
               placeholder="YOUR NAME"
             />
           </div>
@@ -227,9 +231,13 @@ const TagSimulator = () => {
             <input
               type="text"
               value={destination}
-              onChange={(e) => setDestination(e.target.value.toUpperCase())}
+              onChange={(e) => setDestination(e.target.value)}
               maxLength={28}
-              className="w-full px-4 py-2.5 bg-paper border-2 border-ink text-ink font-mono text-sm font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
+              autoCapitalize="characters"
+              autoCorrect="off"
+              spellCheck="false"
+              autoComplete="off"
+              className="w-full px-4 py-2.5 bg-paper border-2 border-ink text-ink font-mono text-sm font-bold uppercase focus:outline-none focus:bg-white focus:border-bottega transition"
               placeholder="DESTINATION"
             />
           </div>
