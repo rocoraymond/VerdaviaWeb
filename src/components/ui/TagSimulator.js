@@ -155,7 +155,7 @@ const seedVarieties = [
 
 const TagSimulator = () => {
   const [selectedSeed, setSelectedSeed] = useState(seedVarieties[0]);
-  const [travelerName, setTravelerName] = useState('ALEX RIVERA');
+  const [travelerName, setTravelerName] = useState('RAYMOND ROCO');
   const [destination, setDestination] = useState('KYOTO // ZERO CARBON');
   const [isFlipped, setIsFlipped] = useState(false);
   const [isBloomed, setIsBloomed] = useState(false);
@@ -264,11 +264,10 @@ const TagSimulator = () => {
                       setSelectedSeed(seed);
                       playInteractionSound('click');
                     }}
-                    className={`p-3.5 border-2 text-left transition-all rounded-xl relative flex flex-col justify-between ${
-                      isSelected
+                    className={`p-3.5 border-2 text-left transition-all rounded-xl relative flex flex-col justify-between ${isSelected
                         ? 'bg-bottega text-white border-ink shadow-[3px_3px_0px_#0a0a0a] translate-x-[-1px] translate-y-[-1px]'
                         : 'bg-paper text-ink border-ink hover:bg-paper-dark hover:border-bottega hover:shadow-[2px_2px_0px_#0a0a0a]'
-                    }`}
+                      }`}
                   >
                     {/* Top Row: Index code & Badge */}
                     <div className="flex items-center justify-between gap-1 mb-1.5">
@@ -276,11 +275,10 @@ const TagSimulator = () => {
                         [{seed.code}]
                       </span>
                       <span
-                        className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${
-                          isSelected
+                        className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${isSelected
                             ? 'bg-white text-bottega'
                             : 'bg-paper-border text-ink'
-                        }`}
+                          }`}
                       >
                         {seed.badge}
                       </span>
