@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Plane, Train, Car, Ship, Trees, Sprout, Gauge } from 'lucide-react';
+import { Plane, Train, Car, Ship, Trees, Sprout, Gauge, AlertTriangle, ArrowDownRight, CheckCircle2 } from 'lucide-react';
 import { useSound } from './SoundManager';
 
 const travelModes = [
-  { id: 'plane', label: 'Aviation', icon: Plane, co2PerKm: 0.255 },
-  { id: 'train', label: 'High-Speed Rail', icon: Train, co2PerKm: 0.035 },
-  { id: 'car', label: 'EV Transit', icon: Car, co2PerKm: 0.053 },
-  { id: 'ship', label: 'Maritime Ferry', icon: Ship, co2PerKm: 0.112 },
+  { id: 'plane', label: 'Aviation', icon: Plane, co2PerKm: 0.255, reductionPercent: 0 },
+  { id: 'train', label: 'High-Speed Rail', icon: Train, co2PerKm: 0.035, reductionPercent: 86 },
+  { id: 'car', label: 'EV Transit', icon: Car, co2PerKm: 0.053, reductionPercent: 79 },
+  { id: 'ship', label: 'Maritime Ferry', icon: Ship, co2PerKm: 0.112, reductionPercent: 56 },
 ];
 
 const CarbonCalculator = () => {
@@ -15,7 +15,8 @@ const CarbonCalculator = () => {
   const { playInteractionSound } = useSound();
 
   const totalCO2 = Math.round(distance * selectedMode.co2PerKm);
-  const trainSavings = Math.max(0, Math.round(distance * (travelModes[0].co2PerKm - selectedMode.co2PerKm)));
+  const flightBaselineCO2 = Math.round(distance * travelModes[0].co2PerKm);
+  const co2Savings = Math.max(0, flightBaselineCO2 - totalCO2);
   const tagsEquivalent = Math.max(1, Math.ceil(totalCO2 / 18));
   const wildflowerSeeds = tagsEquivalent * 150;
 
@@ -41,8 +42,11 @@ const CarbonCalculator = () => {
           {/* Left Controls */}
           <div className="lg:col-span-6 space-y-6">
             <div className="space-y-2">
-              <label className="text-xs font-mono font-bold uppercase tracking-wider text-ink">
-                01 // SELECT TRANSIT MODE
+              <label className="text-xs font-mono font-bold uppercase tracking-wider text-ink flex items-center justify-between">
+                <span>01 // SELECT TRANSIT MODE</span>
+                <span className="text-bottega font-mono font-bold text-[10px]">
+                  [{selectedMode.label.toUpperCase()}]
+                </span>
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {travelModes.map((mode) => {
@@ -51,6 +55,7 @@ const CarbonCalculator = () => {
                   return (
                     <button
                       key={mode.id}
+                      type="button"
                       onClick={() => {
                         setSelectedMode(mode);
                         playInteractionSound('click');
@@ -97,18 +102,20 @@ const CarbonCalculator = () => {
 
           {/* Right Live Impact Readout */}
           <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Box 1: Calculated CO2 */}
             <div className="bg-paper p-5 border-2 border-ink rounded-2xl shadow-[3px_3px_0px_#0a0a0a] space-y-1">
               <div className="text-[10px] font-mono text-ink-muted uppercase font-bold">
                 ESTIMATED TRANSIT CO₂
               </div>
               <div className="text-4xl font-syne font-black text-ink">
-                {totalCO2} <span className="text-xs font-mono text-bottega font-normal">KG</span>
+                {totalCO2.toLocaleString()} <span className="text-xs font-mono text-bottega font-normal">KG</span>
               </div>
               <p className="text-xs font-mono text-ink-muted">
-                Calculated for {distance}km transit.
+                Calculated for {distance.toLocaleString()} km via {selectedMode.label}.
               </p>
             </div>
 
+            {/* Box 2: Regenerative Tag Offset */}
             <div className="bg-bottega text-white p-5 border-2 border-ink rounded-2xl shadow-[3px_3px_0px_#0a0a0a] space-y-1">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-mono uppercase font-bold text-emerald-100">
@@ -120,22 +127,56 @@ const CarbonCalculator = () => {
                 {tagsEquivalent} <span className="text-xs font-mono text-emerald-200 font-normal">TAGS</span>
               </div>
               <p className="text-xs font-mono text-emerald-100">
-                Embeds {wildflowerSeeds.toLocaleString()} seeds in soil.
+                Embeds {wildflowerSeeds.toLocaleString()} wildflower seeds into topsoil.
               </p>
             </div>
 
-            <div className="bg-ink text-white p-5 border-2 border-ink rounded-2xl shadow-[3px_3px_0px_#0a0a0a] sm:col-span-2 space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono uppercase font-bold text-bottega">
-                  CLEAN TRANSIT ADVANTAGE
+            {/* Box 3: Dynamic Transit Analysis (Fixed String & Logic) */}
+            <div className="bg-ink text-white p-6 border-2 border-ink rounded-2xl shadow-[3px_3px_0px_#0a0a0a] sm:col-span-2 space-y-3">
+              <div className="flex items-center justify-between border-b border-neutral-800 pb-2.5">
+                <span className="text-[10px] font-mono uppercase font-bold text-bottega flex items-center gap-1.5">
+                  {selectedMode.id === 'plane' ? (
+                    <>
+                      <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+                      <span>[AVIATION BASELINE ANALYSIS]</span>
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-bottega" />
+                      <span>[CLEAN TRANSIT ADVANTAGE]</span>
+                    </>
+                  )}
                 </span>
                 <Trees className="w-4 h-4 text-bottega" />
               </div>
-              <div className="text-2xl sm:text-3xl font-syne font-extrabold text-white flex items-center gap-3">
-                <span>{trainSavings > 0 ? `-${trainSavings} KG CO₂ AVOIDED` : 'BASE CALCULATION'}</span>
+
+              <div>
+                {selectedMode.id === 'plane' ? (
+                  <div className="space-y-1">
+                    <div className="text-2xl sm:text-3xl font-syne font-black text-amber-400">
+                      +{totalCO2.toLocaleString()} KG CO₂ FOOTPRINT
+                    </div>
+                    <div className="inline-block px-2.5 py-0.5 bg-neutral-800 text-amber-300 font-mono text-[10px] font-bold rounded">
+                      HIGH-EMISSION TRANSIT BENCHMARK
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-1">
+                    <div className="text-2xl sm:text-3xl font-syne font-black text-bottega flex items-center gap-2">
+                      <ArrowDownRight className="w-6 h-6 shrink-0" />
+                      <span>-{co2Savings.toLocaleString()} KG CO₂ SAVED</span>
+                    </div>
+                    <div className="inline-block px-2.5 py-0.5 bg-neutral-800 text-bottega font-mono text-[10px] font-bold rounded">
+                      {selectedMode.reductionPercent}% REDUCTION VS FLIGHT BASELINE
+                    </div>
+                  </div>
+                )}
               </div>
-              <p className="text-xs font-mono text-ink-light">
-                Mindful route choices paired with seeded plantable accessories leave zero plastic waste behind.
+
+              <p className="text-xs font-mono text-neutral-300 leading-relaxed">
+                {selectedMode.id === 'plane'
+                  ? `Commercial aviation is the highest-emission transit method (0.255 kg CO₂/km). Planting ${tagsEquivalent} Verdavia seed tags restores native topsoil with ${wildflowerSeeds.toLocaleString()} wildflower blooms, neutralizing single-use luggage plastics.`
+                  : `Choosing ${selectedMode.label} saves ${co2Savings.toLocaleString()} kg of CO₂ for this ${distance.toLocaleString()} km journey compared to flying. Pairing low-carbon transit with ${tagsEquivalent} plantable tags delivers a net-positive regenerative expedition.`}
               </p>
             </div>
           </div>

@@ -7,39 +7,47 @@ import CircularBadge from './CircularBadge';
 const seedVarieties = [
   {
     id: 'wildflower',
+    code: '01',
     name: 'Wildflower Blend',
     germination: '7-14 Days',
     blooms: 'Poppies, Daisies, Chamomile',
     color: '#008a3d',
     badge: 'Bee Friendly',
-    seedDensity: '150 seeds / dm²'
+    seedDensity: '150 seeds / dm²',
+    desc: 'Native pollinator blend supporting wild bees & butterflies.'
   },
   {
     id: 'lavender',
+    code: '02',
     name: 'Alpine Lavender',
     germination: '14-21 Days',
     blooms: 'Fragrant Purple Lavandula',
     color: '#7c3aed',
     badge: 'Aromatic Herb',
-    seedDensity: '120 seeds / dm²'
+    seedDensity: '120 seeds / dm²',
+    desc: 'Calming alpine perennial with soothing herbal aroma.'
   },
   {
     id: 'basil',
+    code: '03',
     name: 'Italian Genovese Basil',
     germination: '5-10 Days',
     blooms: 'Culinary Sweet Basil Leaves',
     color: '#15803d',
     badge: 'Edible Botanical',
-    seedDensity: '180 seeds / dm²'
+    seedDensity: '180 seeds / dm²',
+    desc: 'Fast-germinating culinary herb for kitchen garden pots.'
   },
   {
     id: 'mint',
+    code: '04',
     name: 'Mountain Field Mint',
     germination: '10-15 Days',
     blooms: 'Refreshing Mentha Spearmint',
     color: '#0d9488',
     badge: 'Pollinator Magnet',
-    seedDensity: '140 seeds / dm²'
+    seedDensity: '140 seeds / dm²',
+    desc: 'Hardy restorative groundcover with crisp aromatic scent.'
   }
 ];
 
@@ -122,34 +130,73 @@ const TagSimulator = () => {
             />
           </div>
 
-          {/* Seed Variety Selection */}
-          <div className="space-y-2">
-            <label className="text-xs font-mono font-bold uppercase tracking-wider text-ink">
-              03 // EMBEDDED SEED GENETICS
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {seedVarieties.map((seed) => (
-                <button
-                  key={seed.id}
-                  onClick={() => {
-                    setSelectedSeed(seed);
-                    playInteractionSound('click');
-                  }}
-                  className={`p-3 border-2 text-left transition-all rounded-xl flex flex-col justify-between ${
-                    selectedSeed.id === seed.id
-                      ? 'bg-bottega text-white border-ink shadow-[2px_2px_0px_#0a0a0a]'
-                      : 'bg-paper text-ink border-ink hover:bg-paper-dark'
-                  }`}
-                >
-                  <div className="flex items-center justify-between w-full mb-1">
-                    <span className="text-xs font-syne font-bold">{seed.name}</span>
-                    {selectedSeed.id === seed.id && <Check className="w-3.5 h-3.5 text-white" />}
-                  </div>
-                  <span className={`text-[10px] font-mono ${selectedSeed.id === seed.id ? 'text-emerald-100' : 'text-bottega'}`}>
-                    {seed.seedDensity}
-                  </span>
-                </button>
-              ))}
+          {/* Redesigned Seed Selection Specimen Matrix */}
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-mono font-bold uppercase tracking-wider text-ink">
+                03 // EMBEDDED SEED GENETICS
+              </label>
+              <span className="text-[10px] font-mono text-bottega font-bold">
+                [SELECT SPECIMEN]
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {seedVarieties.map((seed) => {
+                const isSelected = selectedSeed.id === seed.id;
+                return (
+                  <button
+                    key={seed.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedSeed(seed);
+                      playInteractionSound('click');
+                    }}
+                    className={`p-3.5 border-2 text-left transition-all rounded-xl relative flex flex-col justify-between ${
+                      isSelected
+                        ? 'bg-bottega text-white border-ink shadow-[3px_3px_0px_#0a0a0a] translate-x-[-1px] translate-y-[-1px]'
+                        : 'bg-paper text-ink border-ink hover:bg-paper-dark hover:border-bottega hover:shadow-[2px_2px_0px_#0a0a0a]'
+                    }`}
+                  >
+                    {/* Top Row: Index code & Badge */}
+                    <div className="flex items-center justify-between gap-1 mb-1.5">
+                      <span className={`text-[10px] font-mono font-bold ${isSelected ? 'text-emerald-200' : 'text-bottega'}`}>
+                        [{seed.code}]
+                      </span>
+                      <span
+                        className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${
+                          isSelected
+                            ? 'bg-white text-bottega'
+                            : 'bg-paper-border text-ink'
+                        }`}
+                      >
+                        {seed.badge}
+                      </span>
+                    </div>
+
+                    {/* Middle: Specimen Title */}
+                    <div className="mb-2">
+                      <h4 className="font-syne font-black text-xs uppercase tracking-tight leading-snug">
+                        {seed.name}
+                      </h4>
+                    </div>
+
+                    {/* Bottom Row: Density Pill & Checkmark */}
+                    <div className="flex items-center justify-between pt-1.5 border-t border-current/20">
+                      <span className={`text-[10px] font-mono font-bold tracking-tight ${isSelected ? 'text-white' : 'text-ink-muted'}`}>
+                        {seed.seedDensity}
+                      </span>
+                      {isSelected ? (
+                        <div className="w-4 h-4 rounded-full bg-white text-bottega flex items-center justify-center shrink-0 shadow-sm">
+                          <Check className="w-3 h-3 stroke-[3]" />
+                        </div>
+                      ) : (
+                        <div className="w-3.5 h-3.5 rounded-full border border-ink/40" />
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -248,13 +295,16 @@ const TagSimulator = () => {
               <div className="p-3.5 rounded-xl bg-paper-dark border border-ink space-y-1 text-left font-mono text-xs">
                 <div className="flex justify-between text-[10px] text-ink-muted font-bold">
                   <span>GENETICS:</span>
-                  <span className="text-bottega uppercase">{selectedSeed.badge}</span>
+                  <span className="text-bottega uppercase font-bold">{selectedSeed.badge}</span>
                 </div>
-                <div className="font-bold text-ink text-sm font-syne">
-                  {selectedSeed.name}
+                <div className="font-bold text-ink text-sm font-syne flex items-center justify-between">
+                  <span>{selectedSeed.name}</span>
+                  <span className="text-[10px] font-mono text-bottega bg-white px-1.5 py-0.5 rounded border border-ink/20">
+                    {selectedSeed.seedDensity}
+                  </span>
                 </div>
                 <div className="text-[10px] text-ink-muted">
-                  Germination: {selectedSeed.germination}
+                  Germination: {selectedSeed.germination} • {selectedSeed.blooms}
                 </div>
               </div>
 
