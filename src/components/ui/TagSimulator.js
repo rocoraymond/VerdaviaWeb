@@ -1,6 +1,20 @@
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
-import { Flower2, RotateCcw, ShieldCheck, Check, Compass, Cpu } from 'lucide-react';
+import {
+  Flower2,
+  RotateCcw,
+  ShieldCheck,
+  Check,
+  Compass,
+  Cpu,
+  Mountain,
+  Utensils,
+  Wind,
+  Sparkles,
+  QrCode,
+  Droplets,
+  Sun
+} from 'lucide-react';
 import { useSound } from './SoundManager';
 import CircularBadge from './CircularBadge';
 
@@ -11,10 +25,32 @@ const seedVarieties = [
     name: 'Wildflower Blend',
     germination: '7-14 Days',
     blooms: 'Poppies, Daisies, Chamomile',
-    color: '#008a3d',
     badge: 'Bee Friendly',
     seedDensity: '150 seeds / dm²',
-    desc: 'Native pollinator blend supporting wild bees & butterflies.'
+    desc: 'Native pollinator blend supporting wild bees & butterflies.',
+    theme: {
+      tagType: 'BOTANICAL PASSPORT',
+      serialPrefix: 'WLD-2025',
+      accentColor: '#008a3d',
+      frontBg: 'bg-[#fafaf7]',
+      frontBorder: 'border-ink',
+      frontShadow: 'shadow-[6px_6px_0px_#0a0a0a]',
+      headerBg: 'bg-bottega text-white',
+      badgeBg: 'bg-bottega text-white',
+      accentText: 'text-bottega',
+      cardStyle: 'editorial',
+      cordColor: 'bg-amber-800',
+      eyeletBorder: 'border-ink',
+      eyeletDot: 'bg-bottega',
+      sealText: '100% BIODEGRADABLE',
+      backBg: 'bg-bottega text-white',
+      backBorder: 'border-ink',
+      backAccentBg: 'bg-bottega-dark',
+      backStepNumBg: 'bg-white text-bottega',
+      backHeader: 'Return to Earth',
+      backSubheader: '[PLANTING PROTOCOL]',
+      tagPill: 'POLLINATOR SEED INFUSED'
+    }
   },
   {
     id: 'lavender',
@@ -22,10 +58,32 @@ const seedVarieties = [
     name: 'Alpine Lavender',
     germination: '14-21 Days',
     blooms: 'Fragrant Purple Lavandula',
-    color: '#7c3aed',
     badge: 'Aromatic Herb',
     seedDensity: '120 seeds / dm²',
-    desc: 'Calming alpine perennial with soothing herbal aroma.'
+    desc: 'Calming alpine perennial with soothing herbal aroma.',
+    theme: {
+      tagType: 'ALTITUDE SANCTUARY PASS',
+      serialPrefix: 'LAV-8848',
+      accentColor: '#7c3aed',
+      frontBg: 'bg-[#faf5ff]',
+      frontBorder: 'border-purple-950',
+      frontShadow: 'shadow-[6px_6px_0px_#4c1d95]',
+      headerBg: 'bg-purple-900 text-purple-100',
+      badgeBg: 'bg-purple-800 text-white',
+      accentText: 'text-purple-700',
+      cardStyle: 'alpine',
+      cordColor: 'bg-purple-900',
+      eyeletBorder: 'border-purple-950',
+      eyeletDot: 'bg-purple-600',
+      sealText: 'AROMATIC BIO-FIBER',
+      backBg: 'bg-purple-900 text-white',
+      backBorder: 'border-purple-950',
+      backAccentBg: 'bg-purple-950',
+      backStepNumBg: 'bg-purple-200 text-purple-950',
+      backHeader: 'Alpine Soil Sowing',
+      backSubheader: '[HIGH-ALTITUDE GERMINATION]',
+      tagPill: 'COLD-STRATIFIED SEEDS'
+    }
   },
   {
     id: 'basil',
@@ -33,10 +91,32 @@ const seedVarieties = [
     name: 'Italian Genovese Basil',
     germination: '5-10 Days',
     blooms: 'Culinary Sweet Basil Leaves',
-    color: '#15803d',
     badge: 'Edible Botanical',
     seedDensity: '180 seeds / dm²',
-    desc: 'Fast-germinating culinary herb for kitchen garden pots.'
+    desc: 'Fast-germinating culinary herb for kitchen garden pots.',
+    theme: {
+      tagType: 'CULINARY HERB REGISTER',
+      serialPrefix: 'BSL-1904',
+      accentColor: '#15803d',
+      frontBg: 'bg-[#f0fdf4]',
+      frontBorder: 'border-emerald-950',
+      frontShadow: 'shadow-[6px_6px_0px_#14532d]',
+      headerBg: 'bg-emerald-900 text-emerald-100',
+      badgeBg: 'bg-emerald-800 text-white',
+      accentText: 'text-emerald-700',
+      cardStyle: 'culinary',
+      cordColor: 'bg-amber-900',
+      eyeletBorder: 'border-emerald-950',
+      eyeletDot: 'bg-emerald-600',
+      sealText: 'CULINARY NON-GMO',
+      backBg: 'bg-emerald-900 text-white',
+      backBorder: 'border-emerald-950',
+      backAccentBg: 'bg-emerald-950',
+      backStepNumBg: 'bg-emerald-200 text-emerald-950',
+      backHeader: 'Kitchen Pot Planting',
+      backSubheader: '[CULINARY SPROUT TIMETABLE]',
+      tagPill: 'GENOVESE HEIRLOOM'
+    }
   },
   {
     id: 'mint',
@@ -44,10 +124,32 @@ const seedVarieties = [
     name: 'Mountain Field Mint',
     germination: '10-15 Days',
     blooms: 'Refreshing Mentha Spearmint',
-    color: '#0d9488',
     badge: 'Pollinator Magnet',
     seedDensity: '140 seeds / dm²',
-    desc: 'Hardy restorative groundcover with crisp aromatic scent.'
+    desc: 'Hardy restorative groundcover with crisp aromatic scent.',
+    theme: {
+      tagType: 'ARCTIC EXPEDITION PASS',
+      serialPrefix: 'MNT-7720',
+      accentColor: '#0f766e',
+      frontBg: 'bg-[#f0fdfa]',
+      frontBorder: 'border-teal-950',
+      frontShadow: 'shadow-[6px_6px_0px_#134e4a]',
+      headerBg: 'bg-teal-900 text-teal-100',
+      badgeBg: 'bg-teal-800 text-white',
+      accentText: 'text-teal-700',
+      cardStyle: 'arctic',
+      cordColor: 'bg-slate-800',
+      eyeletBorder: 'border-teal-950',
+      eyeletDot: 'bg-teal-500',
+      sealText: 'FROST-HARDY REGEN',
+      backBg: 'bg-teal-900 text-white',
+      backBorder: 'border-teal-950',
+      backAccentBg: 'bg-teal-950',
+      backStepNumBg: 'bg-teal-200 text-teal-950',
+      backHeader: 'Perennial Groundcover',
+      backSubheader: '[WILD HABITAT RESTORATION]',
+      tagPill: 'FAST REGENERATIVE SPROUT'
+    }
   }
 ];
 
@@ -59,6 +161,8 @@ const TagSimulator = () => {
   const [isBloomed, setIsBloomed] = useState(false);
   const { playInteractionSound } = useSound();
 
+  const currentTheme = selectedSeed.theme;
+
   const handlePlant = () => {
     playInteractionSound('bloom');
     setIsBloomed(true);
@@ -67,7 +171,7 @@ const TagSimulator = () => {
       particleCount: 70,
       spread: 60,
       origin: { y: 0.6 },
-      colors: ['#008a3d', '#0a0a0a', '#ffffff', '#16a34a'],
+      colors: [currentTheme.accentColor, '#0a0a0a', '#ffffff', '#16a34a'],
       ticks: 180,
       gravity: 0.9
     });
@@ -130,14 +234,14 @@ const TagSimulator = () => {
             />
           </div>
 
-          {/* Redesigned Seed Selection Specimen Matrix */}
+          {/* Seed Selection Specimen Matrix */}
           <div className="space-y-2.5">
             <div className="flex items-center justify-between">
               <label className="text-xs font-mono font-bold uppercase tracking-wider text-ink">
                 03 // EMBEDDED SEED GENETICS
               </label>
               <span className="text-[10px] font-mono text-bottega font-bold">
-                [SELECT SPECIMEN]
+                [CUSTOM PASSPORT THEME]
               </span>
             </div>
 
@@ -237,12 +341,12 @@ const TagSimulator = () => {
         <div className="lg:col-span-7 flex flex-col items-center justify-center relative min-h-[480px] bg-paper-dark border-2 border-ink p-8 rounded-2xl shadow-[4px_4px_0px_#0a0a0a] perspective-1000">
           {/* Orbital Badge Accent */}
           <div className="absolute top-4 right-4 hidden sm:block">
-            <CircularBadge size={100} text="VERDAVIA • SEED TAG • 350 GSM • " />
+            <CircularBadge size={100} text={`VERDAVIA • ${selectedSeed.code} • 350 GSM • `} />
           </div>
 
           {/* 3D Flippable Tag Container */}
           <div
-            className="w-72 sm:w-80 h-[430px] relative cursor-pointer my-4 transform-style-3d"
+            className="w-72 sm:w-80 h-[440px] relative cursor-pointer my-4 transform-style-3d"
             style={{
               transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
               transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
@@ -252,9 +356,11 @@ const TagSimulator = () => {
               playInteractionSound('click');
             }}
           >
-            {/* FRONT OF TAG */}
+            {/* ========================================================================= */}
+            {/* FRONT OF TAG: DYNAMIC BY SPECIMEN THEME                                    */}
+            {/* ========================================================================= */}
             <div
-              className="absolute inset-0 rounded-2xl p-6 flex flex-col justify-between border-2 border-ink shadow-[6px_6px_0px_#0a0a0a] bg-white backface-hidden"
+              className={`absolute inset-0 rounded-2xl p-6 flex flex-col justify-between border-2 ${currentTheme.frontBorder} ${currentTheme.frontShadow} ${currentTheme.frontBg} backface-hidden`}
               style={{
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
@@ -262,65 +368,187 @@ const TagSimulator = () => {
                 zIndex: isFlipped ? 0 : 10
               }}
             >
-              {/* Top Eyelet */}
+              {/* Top Eyelet & Cord */}
               <div className="flex flex-col items-center -mt-9">
-                <div className="w-3.5 h-10 bg-amber-800 rounded-full border border-ink" />
-                <div className="w-7 h-7 rounded-full bg-paper border-2 border-ink flex items-center justify-center">
-                  <div className="w-2.5 h-2.5 rounded-full bg-bottega" />
+                <div className={`w-3.5 h-10 ${currentTheme.cordColor} rounded-full border ${currentTheme.frontBorder}`} />
+                <div className={`w-7 h-7 rounded-full ${currentTheme.frontBg} border-2 ${currentTheme.eyeletBorder} flex items-center justify-center`}>
+                  <div className={`w-2.5 h-2.5 rounded-full ${currentTheme.eyeletDot}`} />
                 </div>
               </div>
 
-              {/* Tag Body */}
-              <div className="space-y-4 text-left mt-2">
-                <div className="flex items-center justify-between text-[9px] font-mono text-ink-muted border-b border-ink/20 pb-1">
-                  <span>[VER'DA:VI:A]</span>
-                  <span>REF // 2025</span>
-                </div>
-                <div>
-                  <div className="text-[10px] font-mono uppercase tracking-widest text-bottega font-bold">
-                    TRAVELER PASSPORT
+              {/* SPECIMEN 01: BOTTEGA EDITORIAL WILDFLOWER LAYOUT */}
+              {currentTheme.cardStyle === 'editorial' && (
+                <div className="space-y-4 text-left mt-2">
+                  <div className="flex items-center justify-between text-[9px] font-mono text-ink-muted border-b border-ink/20 pb-1">
+                    <span>[VER'DA:VI:A // ARCHIVE]</span>
+                    <span className="font-bold text-bottega">{currentTheme.serialPrefix}</span>
                   </div>
-                  <div className="font-syne font-black text-2xl text-ink tracking-tight uppercase">
-                    {travelerName || 'TRAVELER NAME'}
+                  <div>
+                    <div className="text-[10px] font-mono uppercase tracking-widest text-bottega font-bold flex items-center gap-1.5">
+                      <Sparkles className="w-3 h-3 text-bottega" />
+                      <span>{currentTheme.tagType}</span>
+                    </div>
+                    <div className="font-syne font-black text-2xl text-ink tracking-tight uppercase mt-0.5">
+                      {travelerName || 'TRAVELER NAME'}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-xs font-mono text-ink">
+                    <Compass className="w-4 h-4 text-bottega" />
+                    <span className="font-bold">{destination || 'GLOBAL EXPEDITION'}</span>
+                  </div>
+
+                  {/* Seed Spec Box */}
+                  <div className="p-3.5 rounded-xl bg-white border-2 border-ink space-y-1 text-left font-mono text-xs shadow-[2px_2px_0px_#0a0a0a]">
+                    <div className="flex justify-between text-[10px] text-ink-muted font-bold">
+                      <span>GENETICS:</span>
+                      <span className="text-bottega uppercase font-bold">{selectedSeed.badge}</span>
+                    </div>
+                    <div className="font-bold text-ink text-sm font-syne flex items-center justify-between">
+                      <span>{selectedSeed.name}</span>
+                      <span className="text-[10px] font-mono text-bottega bg-paper px-1.5 py-0.5 rounded border border-ink/20 font-bold">
+                        {selectedSeed.seedDensity}
+                      </span>
+                    </div>
+                    <div className="text-[10px] text-ink-muted">
+                      Germination: {selectedSeed.germination} • {selectedSeed.blooms}
+                    </div>
                   </div>
                 </div>
+              )}
 
-                <div className="flex items-center gap-2 text-xs font-mono text-ink">
-                  <Compass className="w-4 h-4 text-bottega" />
-                  <span className="font-bold">{destination || 'GLOBAL EXPEDITION'}</span>
-                </div>
-              </div>
+              {/* SPECIMEN 02: ALPINE ALTITUDE SANCTUARY PASS (LAVENDER) */}
+              {currentTheme.cardStyle === 'alpine' && (
+                <div className="space-y-3.5 text-left mt-2">
+                  <div className="flex items-center justify-between text-[9px] font-mono text-purple-900 border-b border-purple-300 pb-1">
+                    <span className="flex items-center gap-1 font-bold">
+                      <Mountain className="w-3 h-3 text-purple-700" />
+                      <span>ALPINE SECTOR // 2,400M</span>
+                    </span>
+                    <span className="font-bold text-purple-700">{currentTheme.serialPrefix}</span>
+                  </div>
 
-              {/* Seed Spec Box */}
-              <div className="p-3.5 rounded-xl bg-paper-dark border border-ink space-y-1 text-left font-mono text-xs">
-                <div className="flex justify-between text-[10px] text-ink-muted font-bold">
-                  <span>GENETICS:</span>
-                  <span className="text-bottega uppercase font-bold">{selectedSeed.badge}</span>
+                  <div className="p-2.5 bg-purple-900 text-white rounded-xl shadow-[2px_2px_0px_#4c1d95]">
+                    <div className="text-[9px] font-mono uppercase tracking-widest text-purple-200">
+                      EXPEDITIONARY NOMAD
+                    </div>
+                    <div className="font-syne font-black text-xl text-white tracking-tight uppercase">
+                      {travelerName || 'TRAVELER NAME'}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-xs font-mono text-purple-950 font-bold">
+                    <Compass className="w-4 h-4 text-purple-700" />
+                    <span>{destination || 'HIGH-ALTITUDE SANCTUARY'}</span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-purple-100 border border-purple-300 space-y-1 font-mono text-xs">
+                    <div className="flex justify-between text-[10px] text-purple-800 font-bold">
+                      <span>FLORA TAXONOMY:</span>
+                      <span className="text-purple-700 uppercase font-bold">{selectedSeed.badge}</span>
+                    </div>
+                    <div className="font-bold text-purple-950 text-sm font-syne">
+                      {selectedSeed.name}
+                    </div>
+                    <div className="text-[10px] text-purple-700 font-bold">
+                      Density: {selectedSeed.seedDensity} • {selectedSeed.germination}
+                    </div>
+                  </div>
                 </div>
-                <div className="font-bold text-ink text-sm font-syne flex items-center justify-between">
-                  <span>{selectedSeed.name}</span>
-                  <span className="text-[10px] font-mono text-bottega bg-white px-1.5 py-0.5 rounded border border-ink/20">
-                    {selectedSeed.seedDensity}
-                  </span>
+              )}
+
+              {/* SPECIMEN 03: CULINARY HERB REGISTER (GENOVESE BASIL) */}
+              {currentTheme.cardStyle === 'culinary' && (
+                <div className="space-y-3.5 text-left mt-2">
+                  <div className="flex items-center justify-between text-[9px] font-mono text-emerald-900 border-b-2 border-emerald-300 pb-1">
+                    <span className="flex items-center gap-1 font-bold">
+                      <Utensils className="w-3 h-3 text-emerald-700" />
+                      <span>HEIRLOOM HERB REGISTER</span>
+                    </span>
+                    <span className="font-bold text-emerald-800">{currentTheme.serialPrefix}</span>
+                  </div>
+
+                  <div>
+                    <div className="text-[9px] font-mono uppercase tracking-widest text-emerald-800 font-bold">
+                      REGISTERED PLANTER
+                    </div>
+                    <div className="font-syne font-black text-2xl text-emerald-950 tracking-tight uppercase">
+                      {travelerName || 'TRAVELER NAME'}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-xs font-mono text-emerald-900 font-bold">
+                    <Sun className="w-4 h-4 text-amber-600" />
+                    <span>{destination || 'MEDITERRANEAN EXPEDITION'}</span>
+                  </div>
+
+                  {/* Dual Grid Kitchen Spec */}
+                  <div className="grid grid-cols-2 gap-2 text-[10px] font-mono">
+                    <div className="p-2 rounded-lg bg-emerald-100 border border-emerald-300">
+                      <div className="text-emerald-700 font-bold">GERMINATION</div>
+                      <div className="font-bold text-emerald-950 font-syne text-xs">{selectedSeed.germination}</div>
+                    </div>
+                    <div className="p-2 rounded-lg bg-emerald-100 border border-emerald-300">
+                      <div className="text-emerald-700 font-bold">DENSITY</div>
+                      <div className="font-bold text-emerald-950 font-syne text-xs">{selectedSeed.seedDensity}</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="text-[10px] text-ink-muted">
-                  Germination: {selectedSeed.germination} • {selectedSeed.blooms}
+              )}
+
+              {/* SPECIMEN 04: ARCTIC RECOVERY BLUEPRINT (MINT) */}
+              {currentTheme.cardStyle === 'arctic' && (
+                <div className="space-y-3.5 text-left mt-2">
+                  <div className="flex items-center justify-between text-[9px] font-mono text-teal-900 border-b border-teal-300 pb-1">
+                    <span className="flex items-center gap-1 font-bold">
+                      <Wind className="w-3 h-3 text-teal-600" />
+                      <span>[POLAR BIO-TELEMETRY]</span>
+                    </span>
+                    <span className="font-bold text-teal-700">{currentTheme.serialPrefix}</span>
+                  </div>
+
+                  <div className="p-3 bg-teal-950 text-white rounded-xl border border-teal-800 space-y-0.5">
+                    <div className="text-[9px] font-mono text-teal-400">OPERATOR DESIGNATION:</div>
+                    <div className="font-syne font-black text-xl text-teal-100 tracking-tight uppercase">
+                      {travelerName || 'TRAVELER NAME'}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-xs font-mono text-teal-950 font-bold">
+                    <Droplets className="w-4 h-4 text-teal-600" />
+                    <span>{destination || 'GLACIAL SANCTUARY ZONE'}</span>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-teal-100 border border-teal-300 space-y-1 font-mono text-xs">
+                    <div className="flex justify-between text-[10px] text-teal-800 font-bold">
+                      <span>BIO-SPECS:</span>
+                      <span className="text-teal-700 font-bold uppercase">{selectedSeed.badge}</span>
+                    </div>
+                    <div className="font-bold text-teal-950 text-sm font-syne">
+                      {selectedSeed.name}
+                    </div>
+                    <div className="text-[10px] text-teal-700">
+                      Density: {selectedSeed.seedDensity} • Hardy Soil Mulch
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Tag Footer Barcode */}
-              <div className="flex items-center justify-between pt-2 border-t-2 border-ink text-[9px] font-mono text-ink">
-                <span className="flex items-center gap-1 font-bold">
-                  <ShieldCheck className="w-3 h-3 text-bottega" />
-                  100% BIODEGRADABLE
+              <div className={`flex items-center justify-between pt-2 border-t-2 ${currentTheme.frontBorder} text-[9px] font-mono`}>
+                <span className={`flex items-center gap-1 font-bold ${currentTheme.accentText}`}>
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  {currentTheme.sealText}
                 </span>
-                <span className="font-bold">VERD-2025</span>
+                <span className="font-bold">{currentTheme.serialPrefix}</span>
               </div>
             </div>
 
-            {/* BACK OF TAG */}
+            {/* ========================================================================= */}
+            {/* BACK OF TAG: DYNAMIC ACCENT BACK                                           */}
+            {/* ========================================================================= */}
             <div
-              className="absolute inset-0 rounded-2xl p-6 flex flex-col justify-between border-2 border-ink shadow-[6px_6px_0px_#0a0a0a] bg-bottega text-white backface-hidden"
+              className={`absolute inset-0 rounded-2xl p-6 flex flex-col justify-between border-2 ${currentTheme.backBorder} ${currentTheme.frontShadow} ${currentTheme.backBg} backface-hidden`}
               style={{
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
@@ -330,50 +558,62 @@ const TagSimulator = () => {
             >
               <div className="text-left space-y-1 pt-2 border-b border-white/20 pb-2">
                 <div className="text-[10px] font-mono tracking-widest uppercase opacity-80">
-                  [PLANTING PROTOCOL]
+                  {currentTheme.backSubheader}
                 </div>
                 <h4 className="font-syne font-black text-xl text-white uppercase">
-                  Return to Earth
+                  {currentTheme.backHeader}
                 </h4>
               </div>
 
               {/* 3 Step Planting Guide */}
               <div className="space-y-3 text-xs font-mono text-white">
-                <div className="flex gap-2 items-start">
-                  <span className="w-5 h-5 rounded-full bg-white text-bottega flex items-center justify-center font-bold text-[10px] shrink-0">1</span>
+                <div className="flex gap-2.5 items-start">
+                  <span className={`w-5 h-5 rounded-full ${currentTheme.backStepNumBg} flex items-center justify-center font-bold text-[10px] shrink-0`}>1</span>
                   <span>Submerge tag in water for 24h post-journey.</span>
                 </div>
-                <div className="flex gap-2 items-start">
-                  <span className="w-5 h-5 rounded-full bg-white text-bottega flex items-center justify-center font-bold text-[10px] shrink-0">2</span>
+                <div className="flex gap-2.5 items-start">
+                  <span className={`w-5 h-5 rounded-full ${currentTheme.backStepNumBg} flex items-center justify-center font-bold text-[10px] shrink-0`}>2</span>
                   <span>Cover with 3mm fertile soil in sunlight.</span>
                 </div>
-                <div className="flex gap-2 items-start">
-                  <span className="w-5 h-5 rounded-full bg-white text-bottega flex items-center justify-center font-bold text-[10px] shrink-0">3</span>
-                  <span>Water daily. Sprout begins in 7-14 days.</span>
+                <div className="flex gap-2.5 items-start">
+                  <span className={`w-5 h-5 rounded-full ${currentTheme.backStepNumBg} flex items-center justify-center font-bold text-[10px] shrink-0`}>3</span>
+                  <span>Water daily. Sprout begins in {selectedSeed.germination}.</span>
                 </div>
               </div>
 
-              <div className="p-3 bg-bottega-dark border border-white/30 rounded-xl text-left font-mono">
+              <div className={`p-3 ${currentTheme.backAccentBg} border border-white/30 rounded-xl text-left font-mono`}>
                 <span className="text-[9px] block opacity-80">EXPECTED BLOOMS:</span>
                 <span className="text-xs font-syne font-bold">{selectedSeed.blooms}</span>
               </div>
 
-              <div className="text-center text-[9px] font-mono opacity-60">
-                Click anywhere to flip back
+              <div className="text-center text-[9px] font-mono opacity-75 flex items-center justify-center gap-1.5">
+                <QrCode className="w-3 h-3" />
+                <span>CLICK TO FLIP BACK TO PASSPORT</span>
               </div>
             </div>
           </div>
 
           {/* Interactive Result Card */}
           {isBloomed && (
-            <div className="mt-4 p-4 rounded-xl bg-white border-2 border-ink shadow-[4px_4px_0px_#008a3d] flex items-center gap-4 text-left animate-fadeIn max-w-sm">
-              <div className="w-10 h-10 rounded-full bg-bottega text-white flex items-center justify-center shrink-0">
+            <div
+              className="mt-4 p-4 rounded-xl bg-white border-2 border-ink shadow-[4px_4px_0px_#008a3d] flex items-center gap-4 text-left animate-fadeIn max-w-sm"
+              style={{ borderLeftColor: currentTheme.accentColor, borderLeftWidth: '6px' }}
+            >
+              <div
+                className="w-10 h-10 rounded-full text-white flex items-center justify-center shrink-0 shadow-sm"
+                style={{ backgroundColor: currentTheme.accentColor }}
+              >
                 <Flower2 className="w-5 h-5 animate-spinSlow" />
               </div>
               <div className="space-y-0.5">
                 <div className="font-syne font-bold text-xs text-ink uppercase flex items-center gap-2">
-                  <span>Tag Planted into Soil</span>
-                  <span className="text-[9px] font-mono text-white bg-bottega px-1.5 py-0.5 rounded">ACTIVE</span>
+                  <span>{selectedSeed.name} Planted</span>
+                  <span
+                    className="text-[9px] font-mono text-white px-1.5 py-0.5 rounded font-bold"
+                    style={{ backgroundColor: currentTheme.accentColor }}
+                  >
+                    ACTIVE
+                  </span>
                 </div>
                 <p className="text-[11px] font-mono text-ink-muted">
                   Sprouts active in {selectedSeed.germination}. Your travels have yielded a living habitat.
