@@ -1,206 +1,235 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import logo from "../assets/images/logo.png";
-import backgroundImg from "../assets/images/bgimg.png";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight, Check, Package, Building2, Gift, Leaf, Award } from 'lucide-react';
+import TiltCard from './ui/TiltCard';
+import MarqueeRibbon from './ui/MarqueeRibbon';
+import CircularBadge from './ui/CircularBadge';
+import { useSound } from './ui/SoundManager';
 
-const servicesData = [
+const serviceOfferings = [
   {
-    title: "About Verdavia",
-    description: "At Verdavia, we turn travel into a force for good. Through innovative design and sustainable materials, we create a positive mark on the planet."
+    icon: Leaf,
+    badge: 'FLAGSHIP PRODUCT',
+    title: 'Plantable Botanical Luggage Tags',
+    desc: 'Crafted from 100% biodegradable post-consumer cotton pulp and embedded with pollinator-friendly wildflowers. Custom shaped, waterproofed with natural starch, and designed for heavy international travel.',
+    features: ['Wildflower or culinary herb seed blends', 'Organic jute or recycled ribbon cords', 'Custom destination engraving available', 'Full soil dissolution in 14 days']
   },
   {
-    title: "Eco-Friendly Travel Accessories",
-    description: "Every Verdavia tag is crafted from sustainable materials with seeds embedded within. Our products are beautiful, and biodegradable."
+    icon: Building2,
+    badge: 'ENTERPRISE & B2B',
+    title: 'Custom Brand & Corporate Giveaways',
+    desc: 'Empower your corporate events, travel agencies, luxury eco-resorts, and airline campaigns with bespoke branded plantable tags printed with non-toxic soy inks.',
+    features: ['Custom logo & QR code embedding', 'Eco-friendly bulk packaging options', 'Verified carbon-offset impact documentation', 'Global white-label shipping']
   },
   {
-    title: "Personalized & Branded Designs",
-    description: "Whether you're an individual traveler, business, or an organization, Verdavia offers custom print and branding options for your campaign."
+    icon: Gift,
+    badge: 'EVENT PACKS',
+    title: 'Sustainable Conferences & Weddings',
+    desc: 'Replace plastic name badges, party favors, and gift tags with living memories that guests can plant in their home gardens long after the event concludes.',
+    features: ['Custom guest name personalization', 'Specialized botanical seed selections', 'Recycled cotton envelope sleeves', 'Low minimum order quantities']
   },
   {
-    title: "Sustainability in Action",
-    description: "Reduce waste through our eco-friendly travel accessories that transform into living plants after your journey ends."
+    icon: Award,
+    badge: 'REGENERATIVE PROGRAM',
+    title: 'Circular Travel Impact Consulting',
+    desc: 'We assist hospitality brands and tour operators in eliminating single-use plastic touchpoints across traveler journeys, replacing them with circular botanical alternatives.',
+    features: ['Zero plastic audit & replacement roadmap', 'Guest engagement & planting workshops', 'Custom botanical storytelling assets', 'B-Corp aligned sustainability metrics']
   }
 ];
 
-const impactCards = [
+const tiers = [
   {
-    title: "More Than Just Tags",
-    description: "Each Verdavia product is more than just a travel essential—we give you a way to journey with purpose and leave a positive mark."
+    name: 'Explorer Nomad',
+    subtitle: 'SOLO EXPEDITIONS',
+    tags: '3 Plantable Tags',
+    price: '₱350',
+    description: 'Essential for individual journeys across global trails.',
+    seedCount: '450+ Seeds',
+    features: ['Wildflower blend infusion', 'Weather-resistant starch coat', 'Organic jute tie cords', 'Step-by-step planting guide']
   },
   {
-    title: "Plant Your Journey",
-    description: "When your travels end, plant your tag with embedded wildflowers or herbs after your trip. Watch your adventures turn sustainable, beautiful, and meaningful."
+    name: 'Expedition Pack',
+    subtitle: 'GROUPS & FAMILIES',
+    tags: '10 Plantable Tags',
+    price: '₱980',
+    popular: true,
+    description: 'Ideal for eco-conscious travel groups and extended expeditions.',
+    seedCount: '1,500+ Seeds',
+    features: ['Choice of 3 botanical blends', 'Custom luggage ID cards', 'Recycled cotton carry pouch', 'Priority eco-dispatch shipping']
   },
   {
-    title: "Perfect For Events",
-    description: "Branded tags perfect to give away at conferences, eco-tourism events, or promotional campaigns."
-  },
-  {
-    title: "Environmental Impact",
-    description: "Every tag embodies our commitment to help create a greener future. Each tag symbolizes a journey that goes beyond function, uniting design, and environmental responsibility."
+    name: 'Bespoke Enterprise',
+    subtitle: 'CORPORATE & BRANDS',
+    tags: '100+ Custom Tags',
+    price: 'Custom Quote',
+    description: 'Bespoke branding and custom seed blends for sustainable organizations.',
+    seedCount: '15,000+ Seeds',
+    features: ['Custom logo & soy-ink print', 'Custom die-cut tag shapes', 'Dedicated sustainability impact report', 'Volume tiered enterprise pricing']
   }
 ];
 
 const Services = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [selectedTier, setSelectedTier] = useState(1);
+  const { playInteractionSound } = useSound();
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat relative"
-      style={{ backgroundImage: `url(${backgroundImg})` }}
-    >
-      {/* Green overlay for contrast */}
-      <div className="absolute inset-0 bg-green-600 bg-opacity-70"></div>
-
-      <div className="relative z-10">
-        {/* Navbar */}
-        <nav className="px-4 py-6 md:px-8 relative z-50">
-          <div className="flex items-center justify-between max-w-7xl mx-auto relative">
-            {/* Logo */}
-            <Link to="/" className="relative z-50">
-              <div className="w-12 h-12 flex items-center justify-center overflow-hidden">
-                <img
-                  src={logo}
-                  alt="Verdavia Logo"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </Link>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-12 text-gray-200 font-medium absolute left-1/2 transform -translate-x-1/2">
-              <Link to="/" className="hover:text-white transition-all duration-300 hover:scale-105 transform">Home</Link>
-              <Link to="/about" className="hover:text-white transition-all duration-300 hover:scale-105 transform">About</Link>
-              <Link to="/services" className="hover:text-white transition-all duration-300 hover:scale-105 transform">Services</Link>
-              <Link to="/contact" className="hover:text-white transition-all duration-300 hover:scale-105 transform">Contact</Link>
+    <div className="min-h-screen bg-paper text-ink pt-28 pb-20 px-4 md:px-8 font-sans bg-tech-grid">
+      {/* Header Section */}
+      <section className="max-w-6xl mx-auto mb-16 border-b-2 border-ink pb-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-bottega text-white font-mono text-xs font-bold tracking-widest">
+              <Package className="w-3.5 h-3.5" />
+              <span>[CATALOG.01] // SOLUTIONS & HARDWARE</span>
             </div>
 
-            {/* Mobile Menu Button */}
-            <div className="md:hidden z-50">
-              <button 
-                className="text-gray-200 p-2 hover:bg-white hover:bg-opacity-20 rounded-lg transition-all duration-300 hover:rotate-180 hover:scale-110 relative"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
-            </div>
+            <h1 className="text-5xl sm:text-7xl md:text-8xl font-syne font-black text-ink uppercase tracking-tight leading-[0.9]">
+              Botanical <span className="text-bottega">Solutions</span>
+            </h1>
+
+            <p className="text-base sm:text-lg font-mono text-ink-muted max-w-2xl font-medium leading-relaxed">
+              From solo traveler tag packs to custom corporate branding, we engineer zero-plastic biodegradable accessories for conscious voyages.
+            </p>
           </div>
 
-          {/* Mobile Menu */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden fixed inset-0 z-40">
-              {/* Backdrop */}
-              <div 
-                className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
-                onClick={() => setIsMobileMenuOpen(false)}
-              ></div>
-              {/* Menu */}
-              <div className="fixed right-0 top-0 h-full w-64 bg-green-800 bg-opacity-95 shadow-xl transform transition-transform z-50">
-                <div className="flex flex-col pt-20 px-4">
-                  <Link 
-                    to="/" 
-                    className="text-gray-200 hover:text-white hover:bg-green-700 transition-colors py-3 px-4 rounded-lg"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Home
-                  </Link>
-                  <Link 
-                    to="/about" 
-                    className="text-gray-200 hover:text-white hover:bg-green-700 transition-colors py-3 px-4 rounded-lg"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    About
-                  </Link>
-                  <Link 
-                    to="/services" 
-                    className="text-gray-200 hover:text-white hover:bg-green-700 transition-colors py-3 px-4 rounded-lg"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Services
-                  </Link>
-                  <Link 
-                    to="/contact" 
-                    className="text-gray-200 hover:text-white hover:bg-green-700 transition-colors py-3 px-4 rounded-lg"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Contact
-                  </Link>
-                </div>
-              </div>
-            </div>
-          )}
-        </nav>
-
-        {/* Content */}
-        <div className="max-w-6xl mx-auto px-6 py-12 pb-24 md:pb-32 text-white">
-          {/* Header */}
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-edges mb-2">
-              OUR SERVICES
-            </h2>
-          </div>
-
-          {/* Main Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            {servicesData.map((service, index) => (
-              <div 
-                key={index} 
-                className="bg-white bg-opacity-15 p-6 rounded-2xl shadow-lg hover:bg-opacity-20 transition-all duration-300"
-              >
-                <h3 className="text-xl font-edges mb-3">{service.title}</h3>
-                <p className="text-sm leading-relaxed opacity-90 text-justify">
-                  {service.description}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Impact Section */}
-          <div className="mt-16">
-            <h3 className="text-2xl font-edges text-center mb-8">Making an Impact</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {impactCards.map((card, index) => (
-                <div 
-                  key={index}
-                  className="bg-white bg-opacity-10 p-6 rounded-xl hover:bg-green-700 hover:bg-opacity-30 transition duration-300 flex flex-col justify-between"
-                >
-                  <div>
-                    <h4 className="font-semibold mb-3">{card.title}</h4>
-                    <p className="text-sm opacity-90">
-                      {card.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* CTA Section */}
-          <div className="mt-16 text-center">
-            <div className="bg-white bg-opacity-15 p-8 rounded-3xl">
-              <h3 className="text-2xl font-edges mb-4">Ready to Make a Difference?</h3>
-              <p className="mb-6 text-lg opacity-90">
-                Join us in revolutionizing eco-friendly travel accessories.
-              </p>
-              <Link to="/contact">
-                <button 
-                  className="bg-green-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-green-700 transition-all duration-300 transform hover:scale-105"
-                  onClick={() => {
-                    document.documentElement.scrollTo({
-                      top: 0,
-                      behavior: 'smooth'
-                    });
-                  }}
-                >
-                  Get Started Today
-                </button>
-              </Link>
-            </div>
+          <div className="hidden lg:block">
+            <CircularBadge size={140} text="TECHNICAL BOTANICALS • 2025 • " className="text-ink" />
           </div>
         </div>
+      </section>
+
+      {/* Ribbon */}
+      <div className="my-8">
+        <MarqueeRibbon items={["CUSTOM CORPORATE BRANDING", "SOLO EXPLORER PACKS", "NON-TOXIC SOY INK", "100% RECYCLED COTTON", "POLLINATOR SEEDS"]} rotate={1} />
       </div>
+
+      {/* Main Service Offerings Bento Grid */}
+      <section className="max-w-7xl mx-auto my-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {serviceOfferings.map((service, idx) => {
+            const Icon = service.icon;
+            return (
+              <TiltCard key={idx} className="p-8 sm:p-10 flex flex-col justify-between" cursorBadge="SERVICE">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between border-b-2 border-ink pb-3">
+                    <span className="text-xs font-mono font-bold text-bottega">
+                      [{service.badge}]
+                    </span>
+                    <div className="w-9 h-9 rounded-full bg-bottega text-white flex items-center justify-center border border-ink shadow-[2px_2px_0px_#0a0a0a]">
+                      <Icon className="w-4 h-4" />
+                    </div>
+                  </div>
+
+                  <h3 className="text-2xl font-syne font-black text-ink uppercase">
+                    {service.title}
+                  </h3>
+
+                  <p className="text-xs font-mono text-ink leading-relaxed">
+                    {service.desc}
+                  </p>
+
+                  <div className="space-y-2 pt-4 border-t border-ink/20">
+                    {service.features.map((feat, fIdx) => (
+                      <div key={fIdx} className="flex items-center gap-2 text-xs font-mono text-ink">
+                        <Check className="w-3.5 h-3.5 text-bottega shrink-0" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-8">
+                  <Link
+                    to="/contact"
+                    onClick={() => playInteractionSound('click')}
+                    className="inline-flex items-center gap-2 text-xs font-mono font-bold text-bottega hover:text-ink group"
+                  >
+                    <span>INQUIRE ABOUT THIS SPECIFICATION</span>
+                    <ArrowUpRight className="w-4 h-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </Link>
+                </div>
+              </TiltCard>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Tier Matrix */}
+      <section className="max-w-7xl mx-auto my-24 space-y-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-ink pb-6 gap-4">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-ink text-white font-mono text-xs font-bold tracking-widest">
+              <Package className="w-3.5 h-3.5 text-bottega" />
+              <span>[TIERS.02] // PACKAGE MATRIX</span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-syne font-black text-ink uppercase">
+              Packaging <span className="text-bottega">Tiers</span>
+            </h2>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+          {tiers.map((tier, idx) => {
+            const isSelected = selectedTier === idx;
+            return (
+              <div
+                key={idx}
+                onClick={() => {
+                  setSelectedTier(idx);
+                  playInteractionSound('click');
+                }}
+                className={`bg-white border-2 border-ink rounded-2xl p-8 flex flex-col justify-between cursor-pointer transition-all ${
+                  isSelected
+                    ? 'shadow-[6px_6px_0px_#008a3d] border-ink scale-[1.02]'
+                    : 'shadow-[4px_4px_0px_#0a0a0a] hover:shadow-[6px_6px_0px_#0a0a0a]'
+                }`}
+              >
+                <div className="space-y-6">
+                  <div className="space-y-1">
+                    <div className="text-[10px] font-mono font-bold text-bottega uppercase tracking-widest">
+                      [{tier.subtitle}]
+                    </div>
+                    <h3 className="text-2xl font-syne font-black text-ink uppercase">{tier.name}</h3>
+                    <p className="text-xs font-mono text-ink-muted leading-relaxed">{tier.description}</p>
+                  </div>
+
+                  <div className="py-4 border-y-2 border-ink flex items-baseline justify-between">
+                    <span className="text-3xl font-syne font-black text-ink">{tier.price}</span>
+                    <span className="text-xs font-mono font-bold text-bottega">{tier.tags}</span>
+                  </div>
+
+                  <div className="space-y-2.5">
+                    <div className="text-[10px] font-mono font-bold text-ink uppercase tracking-wider">
+                      INCLUDED IN SPEC:
+                    </div>
+                    {tier.features.map((feat, fIdx) => (
+                      <div key={fIdx} className="flex items-center gap-2 text-xs font-mono text-ink">
+                        <Check className="w-3.5 h-3.5 text-bottega shrink-0" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-8">
+                  <Link
+                    to="/contact"
+                    onClick={() => playInteractionSound('click')}
+                    className={`w-full py-3.5 rounded-full font-syne font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border-2 border-ink transition ${
+                      tier.popular
+                        ? 'bg-bottega text-white shadow-[3px_3px_0px_#0a0a0a] hover:bg-bottega-dark'
+                        : 'bg-paper text-ink hover:bg-paper-dark'
+                    }`}
+                  >
+                    <span>Select Tier</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
     </div>
   );
 };

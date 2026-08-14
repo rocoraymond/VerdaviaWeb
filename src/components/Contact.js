@@ -1,34 +1,58 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import logo from "../assets/images/logo.png";
-import backgroundImg from "../assets/images/bgimg.png";
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle, ChevronDown, Radio } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import TiltCard from './ui/TiltCard';
+import MarqueeRibbon from './ui/MarqueeRibbon';
+import CircularBadge from './ui/CircularBadge';
+import { useSound } from './ui/SoundManager';
+
+const faqs = [
+  {
+    q: 'How long do the embedded seeds remain viable?',
+    a: 'Our wildflower and herb seeds are tested and sealed in natural paper matrix to remain viable for up to 24 months in normal dry storage.'
+  },
+  {
+    q: 'Will the tag survive rain and rough airport baggage handling?',
+    a: 'Yes. Verdavia tags are reinforced with vegetable-based starches and plant cellulose, making them durable and water-resistant for heavy global flights while remaining completely biodegradable when planted in soil.'
+  },
+  {
+    q: 'Can we order custom branded tags with our company logo?',
+    a: 'Absolutely. We offer bespoke corporate packages with non-toxic soy-based custom printing for events, luxury travel companies, and eco-campaigns.'
+  },
+  {
+    q: 'Are the seeds safe to plant worldwide?',
+    a: 'Our standard blends use non-invasive, globally beneficial pollinator species (poppies, chamomile, lavender, basil). We also offer regional-specific seed blends for strict biosecurity destinations.'
+  }
+];
 
 const Contact = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { playInteractionSound } = useSound();
+  const [openFaq, setOpenFaq] = useState(null);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    message: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    inquiryType: 'Personal Order',
+    message: ''
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ success: false, message: '' });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value
     }));
   };
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState({ success: false, message: '' });
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus({ success: false, message: '' });
+    playInteractionSound('click');
 
     try {
       const templateParams = {
@@ -36,11 +60,11 @@ const Contact = () => {
         from_name: `${formData.firstName} ${formData.lastName}`,
         from_email: formData.email,
         phone: formData.phone,
+        inquiry_type: formData.inquiryType,
         message: formData.message,
         reply_to: formData.email
       };
 
-      // Replace these with your actual EmailJS credentials
       await emailjs.send(
         'service_tdk8e5o',
         'template_3rs6ry6',
@@ -48,24 +72,25 @@ const Contact = () => {
         '2q8xDZEIcMVTLDnYU'
       );
 
+      playInteractionSound('bloom');
       setSubmitStatus({
         success: true,
-        message: 'Thank you for your message. We will get back to you soon!'
+        message: 'Thank you! Your dispatch has been transmitted. Our botanical lab will respond within 24 hours.'
       });
 
-      // Reset form after successful submission
       setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        message: "",
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        inquiryType: 'Personal Order',
+        message: ''
       });
     } catch (error) {
       console.error('Email send failed:', error);
       setSubmitStatus({
         success: false,
-        message: 'Sorry, there was a problem sending your message. Please try again.'
+        message: 'Transmission error. Please try again or reach out directly via email.'
       });
     } finally {
       setIsSubmitting(false);
@@ -73,260 +98,245 @@ const Contact = () => {
   };
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat relative"
-      style={{ backgroundImage: `url(${backgroundImg})` }}
-    >
-      {/* Green overlay for contrast */}
-      <div className="absolute inset-0 bg-green-600 bg-opacity-70"></div>
-
-      <div className="relative z-10">
-        {/* Navbar */}
-        <nav className="px-4 py-6 md:px-8 relative z-50">
-          <div className="flex items-center justify-between max-w-7xl mx-auto relative">
-            {/* Logo */}
-            <Link to="/" className="relative z-50">
-              <div className="w-12 h-12 flex items-center justify-center overflow-hidden">
-                <img
-                  src={logo}
-                  alt="Verdavia Logo"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </Link>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-12 text-gray-200 font-medium absolute left-1/2 transform -translate-x-1/2">
-              <Link to="/" className="hover:text-white transition-all duration-300 hover:scale-105 transform">Home</Link>
-              <Link to="/about" className="hover:text-white transition-all duration-300 hover:scale-105 transform">About</Link>
-              <Link to="/services" className="hover:text-white transition-all duration-300 hover:scale-105 transform">Services</Link>
-              <Link to="/contact" className="hover:text-white transition-all duration-300 hover:scale-105 transform">Contact</Link>
+    <div className="min-h-screen bg-paper text-ink pt-28 pb-20 px-4 md:px-8 font-sans bg-tech-grid">
+      {/* Header Section */}
+      <section className="max-w-6xl mx-auto mb-16 border-b-2 border-ink pb-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-bottega text-white font-mono text-xs font-bold tracking-widest">
+              <Radio className="w-3.5 h-3.5" />
+              <span>[DISPATCH.01] // COMMUNICATIONS TERMINAL</span>
             </div>
 
-            {/* Mobile Menu Button */}
-            <div className="md:hidden z-50">
-              <button 
-                className="text-gray-200 p-2 hover:bg-white hover:bg-opacity-20 rounded-lg transition-all duration-300 hover:rotate-180 hover:scale-110 relative"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
-            </div>
+            <h1 className="text-5xl sm:text-7xl md:text-8xl font-syne font-black text-ink uppercase tracking-tight leading-[0.9]">
+              Get In <span className="text-bottega">Touch</span>
+            </h1>
+
+            <p className="text-base sm:text-lg font-mono text-ink-muted max-w-2xl font-medium leading-relaxed">
+              Order seeded luggage tags, request bespoke corporate samples, or coordinate eco-tourism partnerships.
+            </p>
           </div>
 
-          {/* Mobile Menu */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden fixed inset-0 z-40">
-              {/* Backdrop */}
-              <div 
-                className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
-                onClick={() => setIsMobileMenuOpen(false)}
-              ></div>
-              {/* Menu */}
-              <div className="fixed right-0 top-0 h-full w-64 bg-green-800 bg-opacity-95 shadow-xl transform transition-transform z-50">
-                <div className="flex flex-col pt-20 px-4">
-                  <Link 
-                    to="/" 
-                    className="text-gray-200 hover:text-white hover:bg-green-700 transition-colors py-3 px-4 rounded-lg"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Home
-                  </Link>
-                  <Link 
-                    to="/about" 
-                    className="text-gray-200 hover:text-white hover:bg-green-700 transition-colors py-3 px-4 rounded-lg"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    About
-                  </Link>
-                  <Link 
-                    to="/services" 
-                    className="text-gray-200 hover:text-white hover:bg-green-700 transition-colors py-3 px-4 rounded-lg"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Services
-                  </Link>
-                  <Link 
-                    to="/contact" 
-                    className="text-gray-200 hover:text-white hover:bg-green-700 transition-colors py-3 px-4 rounded-lg"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Contact
-                  </Link>
-                </div>
-              </div>
+          <div className="hidden lg:block">
+            <CircularBadge size={140} text="DIRECT DISPATCH • 2025 • " className="text-ink" />
+          </div>
+        </div>
+      </section>
+
+      {/* Ribbon */}
+      <div className="my-8">
+        <MarqueeRibbon items={["GLOBAL DISPATCH", "ENTERPRISE SPECIFICATIONS", "SOY INK PRINTING", "CIRCULAR PARTNERSHIPS"]} rotate={-1} />
+      </div>
+
+      <div className="max-w-7xl mx-auto my-16 grid grid-cols-1 lg:grid-cols-12 gap-10">
+        {/* Left: Contact Info & FAQ */}
+        <div className="lg:col-span-5 space-y-6">
+          <TiltCard className="p-8 space-y-6" cursorBadge="CONNECT">
+            <div className="text-xs font-mono font-bold text-bottega uppercase tracking-widest">
+              [01 // DIRECTORY]
             </div>
-          )}
-        </nav>
+            <h3 className="text-2xl font-syne font-black text-ink uppercase">
+              Global Communications
+            </h3>
 
-        {/* Content */}
-        <div className="max-w-6xl mx-auto px-6 py-12 pb-24 md:pb-32 text-white">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div>
-                <h1 className="text-4xl font-edges mb-4">Get in touch</h1>
-                <p className="text-gray-200 mb-6">
-                  Whether you have a question about Verdavia, need help with your order, or want to explore partnership opportunities, we're here to connect.
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                <div className="flex items-center space-x-4">
-                  <div className="bg-white bg-opacity-10 p-3 rounded-full">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-edges text-lg">Email</h3>
-                    <p className="text-gray-200">verdaviasustainability@gmail.com</p>
-                  </div>
+            <div className="space-y-4 pt-4 border-t-2 border-ink">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-bottega text-white flex items-center justify-center border border-ink shadow-[2px_2px_0px_#0a0a0a] shrink-0">
+                  <Mail className="w-4 h-4" />
                 </div>
-
-                <div className="flex items-center space-x-4">
-                  <div className="bg-white bg-opacity-10 p-3 rounded-full">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-edges text-lg">Phone</h3>
-                    <p className="text-gray-200">+63 912 345 6789</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-4">
-                  <div className="bg-white bg-opacity-10 p-3 rounded-full">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-edges text-lg">Let's Grow Together</h3>
-                    <p className="text-gray-200">Send us a message—we'll get back to you as soon as possible. Every connection is a step toward a greener future.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Additional Info */}
-              <div className="bg-white bg-opacity-10 p-6 rounded-xl">
-                <h3 className="font-edges text-xl mb-4">Work With Us</h3>
-                <p className="text-gray-200">
-                  Planning an event, looking for eco-friendly giveaways, or building a partnership? Verdavia collaborates with organizations that share the same vision of sustainability. Let's create something meaningful together.
-                </p>
-              </div>
-            </div>
-
-            {/* Contact Form */}
-            <div className="bg-white bg-opacity-10 p-8 rounded-xl">
-              <h2 className="text-2xl font-edges mb-6">We'd love to hear from you!</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-200 mb-2">
-                      First name
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 bg-white bg-opacity-10 border border-gray-300 border-opacity-20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-white"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-200 mb-2">
-                      Last name
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      className="w-full px-4 py-2 bg-white bg-opacity-10 border border-gray-300 border-opacity-20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-white"
-                      required
-                    />
-                  </div>
-                </div>
-
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">
-                    Email
-                  </label>
+                  <div className="text-[10px] font-mono font-bold text-ink-muted uppercase">Official Email</div>
+                  <a href="mailto:verdaviasustainability@gmail.com" className="text-xs font-mono font-bold text-ink hover:text-bottega transition">
+                    verdaviasustainability@gmail.com
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-bottega text-white flex items-center justify-center border border-ink shadow-[2px_2px_0px_#0a0a0a] shrink-0">
+                  <Phone className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[10px] font-mono font-bold text-ink-muted uppercase">Telephone Line</div>
+                  <a href="tel:+639123456789" className="text-xs font-mono font-bold text-ink hover:text-bottega transition">
+                    +63 912 345 6789
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-bottega text-white flex items-center justify-center border border-ink shadow-[2px_2px_0px_#0a0a0a] shrink-0">
+                  <MapPin className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[10px] font-mono font-bold text-ink-muted uppercase">Dispatch Center</div>
+                  <span className="text-xs font-mono font-bold text-ink">
+                    Manila, Philippines [LAT 14.5995° N]
+                  </span>
+                </div>
+              </div>
+            </div>
+          </TiltCard>
+
+          {/* Quick FAQ */}
+          <div className="bg-white border-2 border-ink shadow-[4px_4px_0px_#0a0a0a] rounded-2xl p-6 sm:p-8 space-y-4">
+            <div className="text-xs font-mono font-bold text-bottega uppercase tracking-widest">
+              [FAQ // COMMONLY ASKED]
+            </div>
+
+            <div className="space-y-3">
+              {faqs.map((faq, idx) => (
+                <div key={idx} className="border-b border-ink/20 pb-3">
+                  <button
+                    onClick={() => {
+                      setOpenFaq(openFaq === idx ? null : idx);
+                      playInteractionSound('click');
+                    }}
+                    className="w-full flex items-center justify-between text-left text-xs font-syne font-bold text-ink hover:text-bottega py-1 uppercase"
+                  >
+                    <span>{faq.q}</span>
+                    <ChevronDown className={`w-4 h-4 transform transition-transform ${openFaq === idx ? 'rotate-180 text-bottega' : ''}`} />
+                  </button>
+                  {openFaq === idx && (
+                    <p className="text-xs font-mono text-ink-muted leading-relaxed mt-2 animate-fadeIn">
+                      {faq.a}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Dispatch Form */}
+        <div className="lg:col-span-7">
+          <div className="bg-white border-2 border-ink shadow-[6px_6px_0px_#0a0a0a] rounded-3xl p-8 sm:p-10">
+            <div className="space-y-1 mb-8 border-b-2 border-ink pb-4">
+              <div className="text-xs font-mono font-bold text-bottega uppercase tracking-widest">
+                [TRANSMISSION FORM]
+              </div>
+              <h2 className="text-3xl font-syne font-black text-ink uppercase">
+                Send a Dispatch
+              </h2>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4 font-mono text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="font-bold text-ink">FIRST NAME *</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    required
+                    placeholder="Alex"
+                    className="w-full px-4 py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-bold text-ink">LAST NAME *</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    required
+                    placeholder="Rivera"
+                    className="w-full px-4 py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="font-bold text-ink">EMAIL ADDRESS *</label>
                   <input
                     type="email"
-                    id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 bg-white bg-opacity-10 border border-gray-300 border-opacity-20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-white"
                     required
+                    placeholder="alex@nomad.com"
+                    className="w-full px-4 py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-200 mb-2">
-                    Phone number
-                  </label>
+                <div className="space-y-1">
+                  <label className="font-bold text-ink">TELEPHONE</label>
                   <input
                     type="tel"
-                    id="phone"
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 bg-white bg-opacity-10 border border-gray-300 border-opacity-20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-white"
-                    required
+                    placeholder="+1 (555) 019-2834"
+                    className="w-full px-4 py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
                   />
                 </div>
+              </div>
 
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-200 mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows="4"
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 bg-white bg-opacity-10 border border-gray-300 border-opacity-20 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent text-white resize-none"
-                    required
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`w-full bg-green-600 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 transform 
-                    ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-green-700 hover:scale-105'}`}
+              <div className="space-y-1">
+                <label className="font-bold text-ink">INQUIRY TYPE</label>
+                <select
+                  name="inquiryType"
+                  value={formData.inquiryType}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
                 >
-                  {isSubmitting ? 'Sending...' : 'Send message'}
-                </button>
+                  <option value="Personal Order">Personal Nomad Seed Tag Order</option>
+                  <option value="Corporate Branding">Custom Corporate Branding & Giveaways</option>
+                  <option value="Wedding / Event">Conferences, Weddings & Events</option>
+                  <option value="Hospitality Partnership">Eco-Resort / Airline Collaboration</option>
+                  <option value="Other">General Technical Question</option>
+                </select>
+              </div>
 
-                {submitStatus.message && (
-                  <div className={`mt-4 p-4 rounded-lg ${
-                    submitStatus.success ? 'bg-green-600 bg-opacity-20' : 'bg-red-600 bg-opacity-20'
-                  }`}>
-                    <p className="text-sm text-white">{submitStatus.message}</p>
-                  </div>
+              <div className="space-y-1">
+                <label className="font-bold text-ink">MESSAGE SPECIFICATION *</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={4}
+                  placeholder="Provide expedition dates, quantity requirements, or custom branding requests..."
+                  className="w-full px-4 py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition resize-none"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full py-4 bg-bottega hover:bg-bottega-dark text-white border-2 border-ink font-syne font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[4px_4px_0px_#0a0a0a] transition hover:translate-x-[-1px] hover:translate-y-[-1px] disabled:opacity-50"
+              >
+                {isSubmitting ? (
+                  <span>TRANSMITTING DISPATCH...</span>
+                ) : (
+                  <>
+                    <span>TRANSMIT DISPATCH</span>
+                    <Send className="w-4 h-4" />
+                  </>
                 )}
-              </form>
-            </div>
-          </div>
+              </button>
 
-          {/* Community Section */}
-          <div className="mt-16">
-            <h3 className="text-2xl font-edges text-center mb-8">Be Part of the Community</h3>
-            <p className="text-center text-gray-200 max-w-2xl mx-auto">
-              Don't just travel—bloom with us! Share your Verdavia story, tag us on social media, or drop us a line anytime. We'd love to celebrate your journey as we grow together toward a more sustainable future.
-            </p>
+              {submitStatus.message && (
+                <div
+                  className={`p-4 border-2 border-ink flex items-center gap-3 animate-fadeIn ${
+                    submitStatus.success
+                      ? 'bg-bottega text-white shadow-[3px_3px_0px_#0a0a0a]'
+                      : 'bg-red-700 text-white shadow-[3px_3px_0px_#0a0a0a]'
+                  }`}
+                >
+                  {submitStatus.success ? (
+                    <CheckCircle2 className="w-5 h-5 text-white shrink-0" />
+                  ) : (
+                    <AlertCircle className="w-5 h-5 text-white shrink-0" />
+                  )}
+                  <p className="text-xs font-mono font-bold">{submitStatus.message}</p>
+                </div>
+              )}
+            </form>
           </div>
         </div>
       </div>
