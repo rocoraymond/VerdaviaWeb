@@ -21,19 +21,19 @@ const CarbonCalculator = () => {
   const wildflowerSeeds = tagsEquivalent * 150;
 
   return (
-    <section className="relative py-20 px-4 max-w-7xl mx-auto">
-      <div className="bg-white border-2 border-ink shadow-[6px_6px_0px_#0a0a0a] rounded-3xl p-6 sm:p-10 md:p-12 relative">
-        <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-ink pb-6 mb-8 gap-4">
+    <section className="relative py-12 sm:py-20 px-4 max-w-7xl mx-auto">
+      <div className="bg-white border-2 border-ink shadow-[4px_4px_0px_#0a0a0a] sm:shadow-[6px_6px_0px_#0a0a0a] rounded-3xl p-5 sm:p-10 md:p-12 relative">
+        <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-ink pb-4 sm:pb-6 mb-6 sm:mb-8 gap-3 sm:gap-4">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-bottega text-white font-mono text-xs font-bold tracking-widest">
+            <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 bg-bottega text-white font-mono text-[10px] sm:text-xs font-bold tracking-widest">
               <Gauge className="w-3.5 h-3.5" />
               <span>[CALC.02] // CARBON & BIOMASS TERMINAL</span>
             </div>
-            <h3 className="text-3xl sm:text-4xl md:text-5xl font-syne font-black text-ink uppercase tracking-tight">
+            <h3 className="text-2xl sm:text-4xl md:text-5xl font-syne font-black text-ink uppercase tracking-tight leading-tight">
               Transit Impact <span className="text-bottega">Metrics</span>
             </h3>
           </div>
-          <div className="text-xs font-mono text-ink-muted">
+          <div className="text-[10px] sm:text-xs font-mono text-ink-muted">
             EQUIVALENCY: 1 TAG = 18 KG CO₂ OFFSET VIA BOTANICAL MULCH
           </div>
         </div>

@@ -73,62 +73,62 @@ const Services = () => {
   const { playInteractionSound } = useSound();
 
   return (
-    <div className="min-h-screen bg-paper text-ink pt-28 pb-20 px-4 md:px-8 font-sans bg-tech-grid">
+    <div className="min-h-screen bg-paper text-ink pt-20 sm:pt-28 pb-16 sm:pb-20 px-4 md:px-8 font-sans bg-tech-grid overflow-x-hidden w-full">
       {/* Header Section */}
-      <section className="max-w-6xl mx-auto mb-16 border-b-2 border-ink pb-10">
+      <section className="max-w-6xl mx-auto mb-12 sm:mb-16 border-b-2 border-ink pb-8 sm:pb-10 w-full">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-bottega text-white font-mono text-xs font-bold tracking-widest">
+          <div className="space-y-3 sm:space-y-4">
+            <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 bg-bottega text-white font-mono text-[10px] sm:text-xs font-bold tracking-widest">
               <Package className="w-3.5 h-3.5" />
               <span>[CATALOG.01] // SOLUTIONS & HARDWARE</span>
             </div>
 
-            <h1 className="text-5xl sm:text-7xl md:text-8xl font-syne font-black text-ink uppercase tracking-tight leading-[0.9]">
+            <h1 className="text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-syne font-black text-ink uppercase tracking-tight leading-[0.9] break-words">
               Botanical <span className="text-bottega">Solutions</span>
             </h1>
 
-            <p className="text-base sm:text-lg font-mono text-ink-muted max-w-2xl font-medium leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg font-mono text-ink-muted max-w-2xl font-medium leading-relaxed text-justify">
               From solo traveler tag packs to custom corporate branding, we engineer zero-plastic biodegradable accessories for conscious voyages.
             </p>
           </div>
 
-          <div className="hidden lg:block">
-            <CircularBadge size={140} text="TECHNICAL BOTANICALS • 2025 • " className="text-ink" />
+          <div className="hidden lg:block shrink-0">
+            <CircularBadge size={130} text="TECHNICAL BOTANICALS • 2025 • " className="text-ink" />
           </div>
         </div>
       </section>
 
       {/* Ribbon */}
-      <div className="my-8">
+      <div className="my-6 sm:my-8 overflow-hidden w-full">
         <MarqueeRibbon items={["CUSTOM CORPORATE BRANDING", "SOLO EXPLORER PACKS", "NON-TOXIC SOY INK", "100% RECYCLED COTTON", "POLLINATOR SEEDS"]} rotate={1} />
       </div>
 
       {/* Main Service Offerings Bento Grid */}
-      <section className="max-w-7xl mx-auto my-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <section className="max-w-7xl mx-auto my-12 sm:my-16 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {serviceOfferings.map((service, idx) => {
             const Icon = service.icon;
             return (
-              <TiltCard key={idx} className="p-8 sm:p-10 flex flex-col justify-between" cursorBadge="SERVICE">
-                <div className="space-y-4">
+              <TiltCard key={idx} className="p-6 sm:p-10 flex flex-col justify-between" cursorBadge="SERVICE">
+                <div className="space-y-3 sm:space-y-4">
                   <div className="flex items-center justify-between border-b-2 border-ink pb-3">
-                    <span className="text-xs font-mono font-bold text-bottega">
+                    <span className="text-[10px] sm:text-xs font-mono font-bold text-bottega">
                       [{service.badge}]
                     </span>
-                    <div className="w-9 h-9 rounded-full bg-bottega text-white flex items-center justify-center border border-ink shadow-[2px_2px_0px_#0a0a0a]">
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-bottega text-white flex items-center justify-center border border-ink shadow-[2px_2px_0px_#0a0a0a]">
                       <Icon className="w-4 h-4" />
                     </div>
                   </div>
 
-                  <h3 className="text-2xl font-syne font-black text-ink uppercase">
+                  <h3 className="text-xl sm:text-2xl font-syne font-black text-ink uppercase leading-tight">
                     {service.title}
                   </h3>
 
-                  <p className="text-xs font-mono text-ink leading-relaxed">
+                  <p className="text-xs sm:text-sm font-mono text-ink leading-relaxed text-justify">
                     {service.desc}
                   </p>
 
-                  <div className="space-y-2 pt-4 border-t border-ink/20">
+                  <div className="space-y-2 pt-3 sm:pt-4 border-t border-ink/20">
                     {service.features.map((feat, fIdx) => (
                       <div key={fIdx} className="flex items-center gap-2 text-xs font-mono text-ink">
                         <Check className="w-3.5 h-3.5 text-bottega shrink-0" />
@@ -138,7 +138,7 @@ const Services = () => {
                   </div>
                 </div>
 
-                <div className="pt-8">
+                <div className="pt-6 sm:pt-8">
                   <Link
                     to="/contact"
                     onClick={() => playInteractionSound('click')}
@@ -155,20 +155,20 @@ const Services = () => {
       </section>
 
       {/* Tier Matrix */}
-      <section className="max-w-7xl mx-auto my-24 space-y-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-ink pb-6 gap-4">
+      <section className="max-w-7xl mx-auto my-12 sm:my-24 space-y-6 sm:space-y-10 w-full">
+        <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-ink pb-4 sm:pb-6 gap-3 sm:gap-4">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-ink text-white font-mono text-xs font-bold tracking-widest">
+            <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 bg-ink text-white font-mono text-[10px] sm:text-xs font-bold tracking-widest">
               <Package className="w-3.5 h-3.5 text-bottega" />
               <span>[TIERS.02] // PACKAGE MATRIX</span>
             </div>
-            <h2 className="text-4xl sm:text-5xl font-syne font-black text-ink uppercase">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-syne font-black text-ink uppercase leading-tight">
               Packaging <span className="text-bottega">Tiers</span>
             </h2>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
           {tiers.map((tier, idx) => {
             const isSelected = selectedTier === idx;
             return (
@@ -178,27 +178,27 @@ const Services = () => {
                   setSelectedTier(idx);
                   playInteractionSound('click');
                 }}
-                className={`bg-white border-2 border-ink rounded-2xl p-8 flex flex-col justify-between cursor-pointer transition-all ${
+                className={`bg-white border-2 border-ink rounded-2xl p-6 sm:p-8 flex flex-col justify-between cursor-pointer transition-all ${
                   isSelected
-                    ? 'shadow-[6px_6px_0px_#008a3d] border-ink scale-[1.02]'
-                    : 'shadow-[4px_4px_0px_#0a0a0a] hover:shadow-[6px_6px_0px_#0a0a0a]'
+                    ? 'shadow-[6px_6px_0px_#008a3d] border-ink scale-[1.01] sm:scale-[1.02]'
+                    : 'shadow-[3px_3px_0px_#0a0a0a] sm:shadow-[4px_4px_0px_#0a0a0a] hover:shadow-[6px_6px_0px_#0a0a0a]'
                 }`}
               >
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   <div className="space-y-1">
                     <div className="text-[10px] font-mono font-bold text-bottega uppercase tracking-widest">
                       [{tier.subtitle}]
                     </div>
-                    <h3 className="text-2xl font-syne font-black text-ink uppercase">{tier.name}</h3>
-                    <p className="text-xs font-mono text-ink-muted leading-relaxed">{tier.description}</p>
+                    <h3 className="text-xl sm:text-2xl font-syne font-black text-ink uppercase">{tier.name}</h3>
+                    <p className="text-xs font-mono text-ink-muted leading-relaxed text-justify">{tier.description}</p>
                   </div>
 
-                  <div className="py-4 border-y-2 border-ink flex items-baseline justify-between">
-                    <span className="text-3xl font-syne font-black text-ink">{tier.price}</span>
+                  <div className="py-3 sm:py-4 border-y-2 border-ink flex items-baseline justify-between">
+                    <span className="text-2xl sm:text-3xl font-syne font-black text-ink">{tier.price}</span>
                     <span className="text-xs font-mono font-bold text-bottega">{tier.tags}</span>
                   </div>
 
-                  <div className="space-y-2.5">
+                  <div className="space-y-2">
                     <div className="text-[10px] font-mono font-bold text-ink uppercase tracking-wider">
                       INCLUDED IN SPEC:
                     </div>
@@ -211,11 +211,11 @@ const Services = () => {
                   </div>
                 </div>
 
-                <div className="pt-8">
+                <div className="pt-6 sm:pt-8">
                   <Link
                     to="/contact"
                     onClick={() => playInteractionSound('click')}
-                    className={`w-full py-3.5 rounded-full font-syne font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border-2 border-ink transition ${
+                    className={`w-full py-3 sm:py-3.5 rounded-full font-syne font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border-2 border-ink transition ${
                       tier.popular
                         ? 'bg-bottega text-white shadow-[3px_3px_0px_#0a0a0a] hover:bg-bottega-dark'
                         : 'bg-paper text-ink hover:bg-paper-dark'

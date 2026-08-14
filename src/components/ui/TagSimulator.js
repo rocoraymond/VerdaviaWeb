@@ -183,19 +183,19 @@ const TagSimulator = () => {
   };
 
   return (
-    <section className="relative py-20 px-4 max-w-7xl mx-auto">
+    <section className="relative py-12 sm:py-20 px-4 max-w-7xl mx-auto">
       {/* Title Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-ink pb-8 mb-12 gap-6">
-        <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-ink text-white font-mono text-xs font-bold tracking-widest">
+      <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-ink pb-4 sm:pb-8 mb-8 sm:mb-12 gap-4 sm:gap-6">
+        <div className="space-y-2 sm:space-y-3">
+          <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 bg-ink text-white font-mono text-[10px] sm:text-xs font-bold tracking-widest">
             <Cpu className="w-3.5 h-3.5 text-bottega" />
             <span>[LAB.01] // BOTANICAL CAD SIMULATOR</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-syne font-black text-ink tracking-tight uppercase leading-none">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-syne font-black text-ink tracking-tight uppercase leading-tight">
             3D Seed Tag <span className="text-bottega">Blueprint</span>
           </h2>
         </div>
-        <div className="text-xs font-mono text-ink-muted text-right space-y-1">
+        <div className="text-[10px] sm:text-xs font-mono text-ink-muted sm:text-right space-y-0.5 sm:space-y-1">
           <div>SPECIFICATION: 350 GSM COTTON PULP</div>
           <div>BIODEGRADATION CYCLE: &lt; 14 DAYS</div>
         </div>
@@ -346,7 +346,7 @@ const TagSimulator = () => {
 
           {/* 3D Flippable Tag Container */}
           <div
-            className="w-72 sm:w-80 h-[440px] relative cursor-pointer my-4 transform-style-3d"
+            className="w-full max-w-[290px] xs:max-w-[320px] sm:max-w-[340px] h-[440px] sm:h-[460px] relative cursor-pointer my-4 transform-style-3d"
             style={{
               transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
               transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
@@ -360,7 +360,7 @@ const TagSimulator = () => {
             {/* FRONT OF TAG: DYNAMIC BY SPECIMEN THEME                                    */}
             {/* ========================================================================= */}
             <div
-              className={`absolute inset-0 rounded-2xl p-6 flex flex-col justify-between border-2 ${currentTheme.frontBorder} ${currentTheme.frontShadow} ${currentTheme.frontBg} backface-hidden`}
+              className={`absolute inset-0 rounded-2xl p-4 sm:p-6 flex flex-col justify-between border-2 ${currentTheme.frontBorder} ${currentTheme.frontShadow} ${currentTheme.frontBg} backface-hidden`}
               style={{
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
@@ -369,16 +369,16 @@ const TagSimulator = () => {
               }}
             >
               {/* Top Eyelet & Cord */}
-              <div className="flex flex-col items-center -mt-9">
-                <div className={`w-3.5 h-10 ${currentTheme.cordColor} rounded-full border ${currentTheme.frontBorder}`} />
-                <div className={`w-7 h-7 rounded-full ${currentTheme.frontBg} border-2 ${currentTheme.eyeletBorder} flex items-center justify-center`}>
-                  <div className={`w-2.5 h-2.5 rounded-full ${currentTheme.eyeletDot}`} />
+              <div className="flex flex-col items-center -mt-8 sm:-mt-9">
+                <div className={`w-3.5 h-8 sm:h-10 ${currentTheme.cordColor} rounded-full border ${currentTheme.frontBorder}`} />
+                <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full ${currentTheme.frontBg} border-2 ${currentTheme.eyeletBorder} flex items-center justify-center`}>
+                  <div className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ${currentTheme.eyeletDot}`} />
                 </div>
               </div>
 
               {/* SPECIMEN 01: BOTTEGA EDITORIAL WILDFLOWER LAYOUT */}
               {currentTheme.cardStyle === 'editorial' && (
-                <div className="space-y-4 text-left mt-2">
+                <div className="space-y-3 sm:space-y-4 text-left mt-1 sm:mt-2">
                   <div className="flex items-center justify-between text-[9px] font-mono text-ink-muted border-b border-ink/20 pb-1">
                     <span>[VER'DA:VI:A // ARCHIVE]</span>
                     <span className="font-bold text-bottega">{currentTheme.serialPrefix}</span>
@@ -388,29 +388,29 @@ const TagSimulator = () => {
                       <Sparkles className="w-3 h-3 text-bottega" />
                       <span>{currentTheme.tagType}</span>
                     </div>
-                    <div className="font-syne font-black text-2xl text-ink tracking-tight uppercase mt-0.5">
+                    <div className="font-syne font-black text-xl sm:text-2xl text-ink tracking-tight uppercase mt-0.5 break-words">
                       {travelerName || 'TRAVELER NAME'}
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2 text-xs font-mono text-ink">
-                    <Compass className="w-4 h-4 text-bottega" />
-                    <span className="font-bold">{destination || 'GLOBAL EXPEDITION'}</span>
+                    <Compass className="w-4 h-4 text-bottega shrink-0" />
+                    <span className="font-bold truncate">{destination || 'GLOBAL EXPEDITION'}</span>
                   </div>
 
                   {/* Seed Spec Box */}
-                  <div className="p-3.5 rounded-xl bg-white border-2 border-ink space-y-1 text-left font-mono text-xs shadow-[2px_2px_0px_#0a0a0a]">
+                  <div className="p-3 sm:p-3.5 rounded-xl bg-white border-2 border-ink space-y-1 text-left font-mono text-xs shadow-[2px_2px_0px_#0a0a0a]">
                     <div className="flex justify-between text-[10px] text-ink-muted font-bold">
                       <span>GENETICS:</span>
                       <span className="text-bottega uppercase font-bold">{selectedSeed.badge}</span>
                     </div>
-                    <div className="font-bold text-ink text-sm font-syne flex items-center justify-between">
-                      <span>{selectedSeed.name}</span>
-                      <span className="text-[10px] font-mono text-bottega bg-paper px-1.5 py-0.5 rounded border border-ink/20 font-bold">
+                    <div className="font-bold text-ink text-xs sm:text-sm font-syne flex items-center justify-between gap-1">
+                      <span className="truncate">{selectedSeed.name}</span>
+                      <span className="text-[9px] sm:text-[10px] font-mono text-bottega bg-paper px-1.5 py-0.5 rounded border border-ink/20 font-bold shrink-0">
                         {selectedSeed.seedDensity}
                       </span>
                     </div>
-                    <div className="text-[10px] text-ink-muted">
+                    <div className="text-[10px] text-ink-muted leading-tight">
                       Germination: {selectedSeed.germination} • {selectedSeed.blooms}
                     </div>
                   </div>
@@ -419,7 +419,7 @@ const TagSimulator = () => {
 
               {/* SPECIMEN 02: ALPINE ALTITUDE SANCTUARY PASS (LAVENDER) */}
               {currentTheme.cardStyle === 'alpine' && (
-                <div className="space-y-3.5 text-left mt-2">
+                <div className="space-y-2.5 sm:space-y-3.5 text-left mt-1 sm:mt-2">
                   <div className="flex items-center justify-between text-[9px] font-mono text-purple-900 border-b border-purple-300 pb-1">
                     <span className="flex items-center gap-1 font-bold">
                       <Mountain className="w-3 h-3 text-purple-700" />
@@ -432,22 +432,22 @@ const TagSimulator = () => {
                     <div className="text-[9px] font-mono uppercase tracking-widest text-purple-200">
                       EXPEDITIONARY NOMAD
                     </div>
-                    <div className="font-syne font-black text-xl text-white tracking-tight uppercase">
+                    <div className="font-syne font-black text-lg sm:text-xl text-white tracking-tight uppercase break-words">
                       {travelerName || 'TRAVELER NAME'}
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2 text-xs font-mono text-purple-950 font-bold">
-                    <Compass className="w-4 h-4 text-purple-700" />
-                    <span>{destination || 'HIGH-ALTITUDE SANCTUARY'}</span>
+                    <Compass className="w-4 h-4 text-purple-700 shrink-0" />
+                    <span className="truncate">{destination || 'HIGH-ALTITUDE SANCTUARY'}</span>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-purple-100 border border-purple-300 space-y-1 font-mono text-xs">
+                  <div className="p-2.5 sm:p-3 rounded-xl bg-purple-100 border border-purple-300 space-y-1 font-mono text-xs">
                     <div className="flex justify-between text-[10px] text-purple-800 font-bold">
                       <span>FLORA TAXONOMY:</span>
                       <span className="text-purple-700 uppercase font-bold">{selectedSeed.badge}</span>
                     </div>
-                    <div className="font-bold text-purple-950 text-sm font-syne">
+                    <div className="font-bold text-purple-950 text-xs sm:text-sm font-syne truncate">
                       {selectedSeed.name}
                     </div>
                     <div className="text-[10px] text-purple-700 font-bold">
@@ -459,7 +459,7 @@ const TagSimulator = () => {
 
               {/* SPECIMEN 03: CULINARY HERB REGISTER (GENOVESE BASIL) */}
               {currentTheme.cardStyle === 'culinary' && (
-                <div className="space-y-3.5 text-left mt-2">
+                <div className="space-y-2.5 sm:space-y-3.5 text-left mt-1 sm:mt-2">
                   <div className="flex items-center justify-between text-[9px] font-mono text-emerald-900 border-b-2 border-emerald-300 pb-1">
                     <span className="flex items-center gap-1 font-bold">
                       <Utensils className="w-3 h-3 text-emerald-700" />
@@ -472,24 +472,24 @@ const TagSimulator = () => {
                     <div className="text-[9px] font-mono uppercase tracking-widest text-emerald-800 font-bold">
                       REGISTERED PLANTER
                     </div>
-                    <div className="font-syne font-black text-2xl text-emerald-950 tracking-tight uppercase">
+                    <div className="font-syne font-black text-xl sm:text-2xl text-emerald-950 tracking-tight uppercase break-words">
                       {travelerName || 'TRAVELER NAME'}
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2 text-xs font-mono text-emerald-900 font-bold">
-                    <Sun className="w-4 h-4 text-amber-600" />
-                    <span>{destination || 'MEDITERRANEAN EXPEDITION'}</span>
+                    <Sun className="w-4 h-4 text-amber-600 shrink-0" />
+                    <span className="truncate">{destination || 'MEDITERRANEAN EXPEDITION'}</span>
                   </div>
 
                   {/* Dual Grid Kitchen Spec */}
                   <div className="grid grid-cols-2 gap-2 text-[10px] font-mono">
                     <div className="p-2 rounded-lg bg-emerald-100 border border-emerald-300">
-                      <div className="text-emerald-700 font-bold">GERMINATION</div>
+                      <div className="text-emerald-700 font-bold text-[9px]">GERMINATION</div>
                       <div className="font-bold text-emerald-950 font-syne text-xs">{selectedSeed.germination}</div>
                     </div>
                     <div className="p-2 rounded-lg bg-emerald-100 border border-emerald-300">
-                      <div className="text-emerald-700 font-bold">DENSITY</div>
+                      <div className="text-emerald-700 font-bold text-[9px]">DENSITY</div>
                       <div className="font-bold text-emerald-950 font-syne text-xs">{selectedSeed.seedDensity}</div>
                     </div>
                   </div>
@@ -498,7 +498,7 @@ const TagSimulator = () => {
 
               {/* SPECIMEN 04: ARCTIC RECOVERY BLUEPRINT (MINT) */}
               {currentTheme.cardStyle === 'arctic' && (
-                <div className="space-y-3.5 text-left mt-2">
+                <div className="space-y-2.5 sm:space-y-3.5 text-left mt-1 sm:mt-2">
                   <div className="flex items-center justify-between text-[9px] font-mono text-teal-900 border-b border-teal-300 pb-1">
                     <span className="flex items-center gap-1 font-bold">
                       <Wind className="w-3 h-3 text-teal-600" />
@@ -507,16 +507,16 @@ const TagSimulator = () => {
                     <span className="font-bold text-teal-700">{currentTheme.serialPrefix}</span>
                   </div>
 
-                  <div className="p-3 bg-teal-950 text-white rounded-xl border border-teal-800 space-y-0.5">
+                  <div className="p-2.5 sm:p-3 bg-teal-950 text-white rounded-xl border border-teal-800 space-y-0.5">
                     <div className="text-[9px] font-mono text-teal-400">OPERATOR DESIGNATION:</div>
-                    <div className="font-syne font-black text-xl text-teal-100 tracking-tight uppercase">
+                    <div className="font-syne font-black text-lg sm:text-xl text-teal-100 tracking-tight uppercase break-words">
                       {travelerName || 'TRAVELER NAME'}
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2 text-xs font-mono text-teal-950 font-bold">
-                    <Droplets className="w-4 h-4 text-teal-600" />
-                    <span>{destination || 'GLACIAL SANCTUARY ZONE'}</span>
+                    <Droplets className="w-4 h-4 text-teal-600 shrink-0" />
+                    <span className="truncate">{destination || 'GLACIAL SANCTUARY ZONE'}</span>
                   </div>
 
                   <div className="p-2.5 rounded-xl bg-teal-100 border border-teal-300 space-y-1 font-mono text-xs">
@@ -524,7 +524,7 @@ const TagSimulator = () => {
                       <span>BIO-SPECS:</span>
                       <span className="text-teal-700 font-bold uppercase">{selectedSeed.badge}</span>
                     </div>
-                    <div className="font-bold text-teal-950 text-sm font-syne">
+                    <div className="font-bold text-teal-950 text-xs sm:text-sm font-syne truncate">
                       {selectedSeed.name}
                     </div>
                     <div className="text-[10px] text-teal-700">
@@ -545,10 +545,10 @@ const TagSimulator = () => {
             </div>
 
             {/* ========================================================================= */}
-            {/* BACK OF TAG: DYNAMIC ACCENT BACK                                           */}
+            {/* BACK OF TAG: RESPONSIVE DYNAMIC ACCENT BACK                                */}
             {/* ========================================================================= */}
             <div
-              className={`absolute inset-0 rounded-2xl p-6 flex flex-col justify-between border-2 ${currentTheme.backBorder} ${currentTheme.frontShadow} ${currentTheme.backBg} backface-hidden`}
+              className={`absolute inset-0 rounded-2xl p-4 sm:p-6 flex flex-col justify-between border-2 ${currentTheme.backBorder} ${currentTheme.frontShadow} ${currentTheme.backBg} backface-hidden overflow-hidden`}
               style={{
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
@@ -556,39 +556,39 @@ const TagSimulator = () => {
                 zIndex: isFlipped ? 10 : 0
               }}
             >
-              <div className="text-left space-y-1 pt-2 border-b border-white/20 pb-2">
-                <div className="text-[10px] font-mono tracking-widest uppercase opacity-80">
+              <div className="text-left space-y-1 pt-1 sm:pt-2 border-b border-white/20 pb-2">
+                <div className="text-[9px] sm:text-[10px] font-mono tracking-widest uppercase opacity-80">
                   {currentTheme.backSubheader}
                 </div>
-                <h4 className="font-syne font-black text-xl text-white uppercase">
+                <h4 className="font-syne font-black text-sm xs:text-base sm:text-lg md:text-xl text-white uppercase tracking-tight leading-snug break-words">
                   {currentTheme.backHeader}
                 </h4>
               </div>
 
               {/* 3 Step Planting Guide */}
-              <div className="space-y-3 text-xs font-mono text-white">
-                <div className="flex gap-2.5 items-start">
-                  <span className={`w-5 h-5 rounded-full ${currentTheme.backStepNumBg} flex items-center justify-center font-bold text-[10px] shrink-0`}>1</span>
-                  <span>Submerge tag in water for 24h post-journey.</span>
+              <div className="space-y-2.5 sm:space-y-3 text-[11px] sm:text-xs font-mono text-white">
+                <div className="flex gap-2 sm:gap-2.5 items-start">
+                  <span className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full ${currentTheme.backStepNumBg} flex items-center justify-center font-bold text-[9px] sm:text-[10px] shrink-0 mt-0.5`}>1</span>
+                  <span className="leading-snug">Submerge tag in water for 24h post-journey.</span>
                 </div>
-                <div className="flex gap-2.5 items-start">
-                  <span className={`w-5 h-5 rounded-full ${currentTheme.backStepNumBg} flex items-center justify-center font-bold text-[10px] shrink-0`}>2</span>
-                  <span>Cover with 3mm fertile soil in sunlight.</span>
+                <div className="flex gap-2 sm:gap-2.5 items-start">
+                  <span className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full ${currentTheme.backStepNumBg} flex items-center justify-center font-bold text-[9px] sm:text-[10px] shrink-0 mt-0.5`}>2</span>
+                  <span className="leading-snug">Cover with 3mm fertile soil in sunlight.</span>
                 </div>
-                <div className="flex gap-2.5 items-start">
-                  <span className={`w-5 h-5 rounded-full ${currentTheme.backStepNumBg} flex items-center justify-center font-bold text-[10px] shrink-0`}>3</span>
-                  <span>Water daily. Sprout begins in {selectedSeed.germination}.</span>
+                <div className="flex gap-2 sm:gap-2.5 items-start">
+                  <span className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full ${currentTheme.backStepNumBg} flex items-center justify-center font-bold text-[9px] sm:text-[10px] shrink-0 mt-0.5`}>3</span>
+                  <span className="leading-snug">Water daily. Sprout begins in {selectedSeed.germination}.</span>
                 </div>
               </div>
 
-              <div className={`p-3 ${currentTheme.backAccentBg} border border-white/30 rounded-xl text-left font-mono`}>
-                <span className="text-[9px] block opacity-80">EXPECTED BLOOMS:</span>
-                <span className="text-xs font-syne font-bold">{selectedSeed.blooms}</span>
+              <div className={`p-2.5 sm:p-3 ${currentTheme.backAccentBg} border border-white/30 rounded-xl text-left font-mono`}>
+                <span className="text-[9px] block opacity-80 font-bold uppercase">EXPECTED BLOOMS:</span>
+                <span className="text-xs font-syne font-bold leading-tight block">{selectedSeed.blooms}</span>
               </div>
 
-              <div className="text-center text-[9px] font-mono opacity-75 flex items-center justify-center gap-1.5">
+              <div className="text-center text-[9px] font-mono opacity-75 flex items-center justify-center gap-1.5 pt-0.5">
                 <QrCode className="w-3 h-3" />
-                <span>CLICK TO FLIP BACK TO PASSPORT</span>
+                <span className="tracking-tight">CLICK TO FLIP BACK TO PASSPORT</span>
               </div>
             </div>
           </div>

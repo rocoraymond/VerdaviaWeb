@@ -34,6 +34,8 @@ html {
   scroll-behavior: smooth;
   background-color: #fafaf7;
   color: #0a0a0a;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -42,8 +44,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  width: 100%;
+  position: relative;
   background-color: #fafaf7;
   color: #0a0a0a;
+}
+
+#root {
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
 }
 
 /* 3D Transform & Backface Visibility Primitives */

@@ -98,66 +98,66 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-paper text-ink pt-28 pb-20 px-4 md:px-8 font-sans bg-tech-grid">
+    <div className="min-h-screen bg-paper text-ink pt-20 sm:pt-28 pb-16 sm:pb-20 px-4 md:px-8 font-sans bg-tech-grid">
       {/* Header Section */}
-      <section className="max-w-6xl mx-auto mb-16 border-b-2 border-ink pb-10">
+      <section className="max-w-6xl mx-auto mb-12 sm:mb-16 border-b-2 border-ink pb-8 sm:pb-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-bottega text-white font-mono text-xs font-bold tracking-widest">
+          <div className="space-y-3 sm:space-y-4">
+            <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 bg-bottega text-white font-mono text-[10px] sm:text-xs font-bold tracking-widest">
               <Radio className="w-3.5 h-3.5" />
               <span>[DISPATCH.01] // COMMUNICATIONS TERMINAL</span>
             </div>
 
-            <h1 className="text-5xl sm:text-7xl md:text-8xl font-syne font-black text-ink uppercase tracking-tight leading-[0.9]">
+            <h1 className="text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-syne font-black text-ink uppercase tracking-tight leading-[0.9] break-words">
               Get In <span className="text-bottega">Touch</span>
             </h1>
 
-            <p className="text-base sm:text-lg font-mono text-ink-muted max-w-2xl font-medium leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg font-mono text-ink-muted max-w-2xl font-medium leading-relaxed">
               Order seeded luggage tags, request bespoke corporate samples, or coordinate eco-tourism partnerships.
             </p>
           </div>
 
-          <div className="hidden lg:block">
-            <CircularBadge size={140} text="DIRECT DISPATCH • 2025 • " className="text-ink" />
+          <div className="hidden lg:block shrink-0">
+            <CircularBadge size={130} text="DIRECT DISPATCH • 2025 • " className="text-ink" />
           </div>
         </div>
       </section>
 
       {/* Ribbon */}
-      <div className="my-8">
+      <div className="my-6 sm:my-8">
         <MarqueeRibbon items={["GLOBAL DISPATCH", "ENTERPRISE SPECIFICATIONS", "SOY INK PRINTING", "CIRCULAR PARTNERSHIPS"]} rotate={-1} />
       </div>
 
-      <div className="max-w-7xl mx-auto my-16 grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <div className="max-w-7xl mx-auto my-12 sm:my-16 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10">
         {/* Left: Contact Info & FAQ */}
         <div className="lg:col-span-5 space-y-6">
-          <TiltCard className="p-8 space-y-6" cursorBadge="CONNECT">
-            <div className="text-xs font-mono font-bold text-bottega uppercase tracking-widest">
+          <TiltCard className="p-6 sm:p-8 space-y-4 sm:space-y-6" cursorBadge="CONNECT">
+            <div className="text-[10px] sm:text-xs font-mono font-bold text-bottega uppercase tracking-widest">
               [01 // DIRECTORY]
             </div>
-            <h3 className="text-2xl font-syne font-black text-ink uppercase">
+            <h3 className="text-xl sm:text-2xl font-syne font-black text-ink uppercase">
               Global Communications
             </h3>
 
-            <div className="space-y-4 pt-4 border-t-2 border-ink">
+            <div className="space-y-3.5 sm:space-y-4 pt-3 sm:pt-4 border-t-2 border-ink">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-bottega text-white flex items-center justify-center border border-ink shadow-[2px_2px_0px_#0a0a0a] shrink-0">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-bottega text-white flex items-center justify-center border border-ink shadow-[2px_2px_0px_#0a0a0a] shrink-0">
                   <Mail className="w-4 h-4" />
                 </div>
-                <div>
-                  <div className="text-[10px] font-mono font-bold text-ink-muted uppercase">Official Email</div>
-                  <a href="mailto:verdaviasustainability@gmail.com" className="text-xs font-mono font-bold text-ink hover:text-bottega transition">
+                <div className="min-w-0">
+                  <div className="text-[9px] sm:text-[10px] font-mono font-bold text-ink-muted uppercase">Official Email</div>
+                  <a href="mailto:verdaviasustainability@gmail.com" className="text-xs font-mono font-bold text-ink hover:text-bottega transition break-all">
                     verdaviasustainability@gmail.com
                   </a>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-bottega text-white flex items-center justify-center border border-ink shadow-[2px_2px_0px_#0a0a0a] shrink-0">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-bottega text-white flex items-center justify-center border border-ink shadow-[2px_2px_0px_#0a0a0a] shrink-0">
                   <Phone className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-[10px] font-mono font-bold text-ink-muted uppercase">Telephone Line</div>
+                  <div className="text-[9px] sm:text-[10px] font-mono font-bold text-ink-muted uppercase">Telephone Line</div>
                   <a href="tel:+639123456789" className="text-xs font-mono font-bold text-ink hover:text-bottega transition">
                     +63 912 345 6789
                   </a>
@@ -165,11 +165,11 @@ const Contact = () => {
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-bottega text-white flex items-center justify-center border border-ink shadow-[2px_2px_0px_#0a0a0a] shrink-0">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-bottega text-white flex items-center justify-center border border-ink shadow-[2px_2px_0px_#0a0a0a] shrink-0">
                   <MapPin className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-[10px] font-mono font-bold text-ink-muted uppercase">Dispatch Center</div>
+                  <div className="text-[9px] sm:text-[10px] font-mono font-bold text-ink-muted uppercase">Dispatch Center</div>
                   <span className="text-xs font-mono font-bold text-ink">
                     Manila, Philippines [LAT 14.5995° N]
                   </span>
@@ -179,8 +179,8 @@ const Contact = () => {
           </TiltCard>
 
           {/* Quick FAQ */}
-          <div className="bg-white border-2 border-ink shadow-[4px_4px_0px_#0a0a0a] rounded-2xl p-6 sm:p-8 space-y-4">
-            <div className="text-xs font-mono font-bold text-bottega uppercase tracking-widest">
+          <div className="bg-white border-2 border-ink shadow-[3px_3px_0px_#0a0a0a] sm:shadow-[4px_4px_0px_#0a0a0a] rounded-2xl p-5 sm:p-8 space-y-3 sm:space-y-4">
+            <div className="text-[10px] sm:text-xs font-mono font-bold text-bottega uppercase tracking-widest">
               [FAQ // COMMONLY ASKED]
             </div>
 
@@ -192,10 +192,10 @@ const Contact = () => {
                       setOpenFaq(openFaq === idx ? null : idx);
                       playInteractionSound('click');
                     }}
-                    className="w-full flex items-center justify-between text-left text-xs font-syne font-bold text-ink hover:text-bottega py-1 uppercase"
+                    className="w-full flex items-center justify-between text-left text-xs font-syne font-bold text-ink hover:text-bottega py-1 uppercase gap-2"
                   >
                     <span>{faq.q}</span>
-                    <ChevronDown className={`w-4 h-4 transform transition-transform ${openFaq === idx ? 'rotate-180 text-bottega' : ''}`} />
+                    <ChevronDown className={`w-4 h-4 shrink-0 transform transition-transform ${openFaq === idx ? 'rotate-180 text-bottega' : ''}`} />
                   </button>
                   {openFaq === idx && (
                     <p className="text-xs font-mono text-ink-muted leading-relaxed mt-2 animate-fadeIn">
@@ -210,18 +210,18 @@ const Contact = () => {
 
         {/* Right: Dispatch Form */}
         <div className="lg:col-span-7">
-          <div className="bg-white border-2 border-ink shadow-[6px_6px_0px_#0a0a0a] rounded-3xl p-8 sm:p-10">
-            <div className="space-y-1 mb-8 border-b-2 border-ink pb-4">
-              <div className="text-xs font-mono font-bold text-bottega uppercase tracking-widest">
+          <div className="bg-white border-2 border-ink shadow-[4px_4px_0px_#0a0a0a] sm:shadow-[6px_6px_0px_#0a0a0a] rounded-3xl p-6 sm:p-10">
+            <div className="space-y-1 mb-6 sm:mb-8 border-b-2 border-ink pb-3 sm:pb-4">
+              <div className="text-[10px] sm:text-xs font-mono font-bold text-bottega uppercase tracking-widest">
                 [TRANSMISSION FORM]
               </div>
-              <h2 className="text-3xl font-syne font-black text-ink uppercase">
+              <h2 className="text-2xl sm:text-3xl font-syne font-black text-ink uppercase">
                 Send a Dispatch
               </h2>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 font-mono text-xs">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 font-mono text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div className="space-y-1">
                   <label className="font-bold text-ink">FIRST NAME *</label>
                   <input
@@ -231,7 +231,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     placeholder="Alex"
-                    className="w-full px-4 py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
+                    className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
                   />
                 </div>
 
@@ -244,12 +244,12 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     placeholder="Rivera"
-                    className="w-full px-4 py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
+                    className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div className="space-y-1">
                   <label className="font-bold text-ink">EMAIL ADDRESS *</label>
                   <input
@@ -259,7 +259,7 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     placeholder="alex@nomad.com"
-                    className="w-full px-4 py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
+                    className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
                   />
                 </div>
 
@@ -271,7 +271,7 @@ const Contact = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="+1 (555) 019-2834"
-                    className="w-full px-4 py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
+                    className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
                   />
                 </div>
               </div>
@@ -282,7 +282,7 @@ const Contact = () => {
                   name="inquiryType"
                   value={formData.inquiryType}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
+                  className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition"
                 >
                   <option value="Personal Order">Personal Nomad Seed Tag Order</option>
                   <option value="Corporate Branding">Custom Corporate Branding & Giveaways</option>
@@ -301,14 +301,14 @@ const Contact = () => {
                   required
                   rows={4}
                   placeholder="Provide expedition dates, quantity requirements, or custom branding requests..."
-                  className="w-full px-4 py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition resize-none"
+                  className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 bg-paper border-2 border-ink text-ink font-bold focus:outline-none focus:bg-white focus:border-bottega transition resize-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-bottega hover:bg-bottega-dark text-white border-2 border-ink font-syne font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[4px_4px_0px_#0a0a0a] transition hover:translate-x-[-1px] hover:translate-y-[-1px] disabled:opacity-50"
+                className="w-full py-3.5 sm:py-4 bg-bottega hover:bg-bottega-dark text-white border-2 border-ink font-syne font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[3px_3px_0px_#0a0a0a] sm:shadow-[4px_4px_0px_#0a0a0a] transition hover:translate-x-[-1px] hover:translate-y-[-1px] disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <span>TRANSMITTING DISPATCH...</span>
@@ -322,7 +322,7 @@ const Contact = () => {
 
               {submitStatus.message && (
                 <div
-                  className={`p-4 border-2 border-ink flex items-center gap-3 animate-fadeIn ${
+                  className={`p-3.5 sm:p-4 border-2 border-ink flex items-center gap-3 animate-fadeIn ${
                     submitStatus.success
                       ? 'bg-bottega text-white shadow-[3px_3px_0px_#0a0a0a]'
                       : 'bg-red-700 text-white shadow-[3px_3px_0px_#0a0a0a]'
